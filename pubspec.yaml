@@ -1,0 +1,95 @@
+name: bodsquare_sdk
+description: A new Flutter package project.
+version: 0.0.1
+environment:
+  sdk: ">=2.18.1 <3.0.0"
+  flutter: ">=1.17.0"
+dependencies:
+  flutter:
+    sdk: flutter
+  url_launcher: "^6.1.3"
+  uni_links: "^0.5.1"
+  dio: "^4.0.6"
+  elegant_notification: "^1.6.4"
+  r_dart_library: "^0.4.1"
+  webview_flutter: "^3.0.4"
+  json_serializable: "^6.5.1"
+  retrofit: "^3.3.1"
+  json_annotation: "^4.1.0"
+  flutter_svg: "^1.0.3"
+  flutter_easyloading: "^3.0.5"
+  another_flushbar: "^1.12.29"
+  flutter_spinkit: "^5.1.0"
+  get: 4.6.1
+  clipboard: "^0.1.3"
+  cloudinary_public: "^0.20.0"
+  shared_preferences: "^2.0.17"
+  file_picker: "^5.2.5"
+  image_picker: "^0.8.6+1"
+  intl: "^0.18.0"
+  cached_network_image: "^3.2.3"
+  grouped_list: ^5.1.2
+  native_linkify: ^0.0.1
+  video_player: ^2.5.1
+  any_link_preview: ^3.0.0
+  flutter_linkify: ^5.0.2
+  permission_handler: ^10.2.0
+  image_gallery_saver: ^1.7.1
+  pull_to_refresh: ^2.0.0
+  record: ^4.4.4
+  audioplayers: ^2.0.0
+  country_code_picker: ^2.0.2
+  flutter_libphonenumber: ^1.3.0
+  pretty_dio_logger: ^1.2.0-beta-1
+  equatable: "^2.0.3"
+  web_socket_channel: "^2.2.0"
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: "^2.0.0"
+  build_runner: "^2.1.11"
+  retrofit_generator: "^4.2.0"
+  
+flutter:
+  assets:
+  - assets/images/channels/add_channel.svg
+  - assets/images/channels/add_icon_circle.svg
+  - assets/images/channels/facebook.svg
+  - assets/images/channels/facebook_logo.svg
+  - assets/images/channels/forbidden.svg
+  - assets/images/channels/instagram.svg
+  - assets/images/channels/instagram_logo.svg
+  - assets/images/channels/sms.svg
+  - assets/images/channels/tick_circle.svg
+  - assets/images/channels/twitter.svg
+  - assets/images/channels/twitter_logo.svg
+  - assets/images/channels/whatsapp.svg
+  - assets/images/channels/whatsapp_logo.svg
+  - assets/images/conversations/Facebook.svg
+  - assets/images/conversations/Instagram.svg
+  - assets/images/conversations/Twitter.svg
+  - assets/images/conversations/attachment.svg
+  - assets/images/conversations/blocked_user.svg
+  - assets/images/conversations/bodsquare.svg
+  - assets/images/conversations/chat_details_eclipse.svg
+  - assets/images/conversations/chat_timer_icon.svg
+  - assets/images/conversations/double_ticker.svg
+  - assets/images/conversations/downloaded.svg
+  - assets/images/conversations/facebook_user.svg
+  - assets/images/conversations/file_preview_cancel.svg
+  - assets/images/conversations/instagram_user.svg
+  - assets/images/conversations/microphone.svg
+  - assets/images/conversations/no_message_yet.svg
+  - assets/images/conversations/report_flag.svg
+  - assets/images/conversations/send_message_icon.svg
+  - assets/images/conversations/single_ticker.svg
+  - assets/images/conversations/twitter_user.svg
+  - assets/images/conversations/whatsapp_user.svg
+flr:
+  core_version: 3.2.0
+  dartfmt_line_length: 80
+  assets:
+  - assets/images
+  fonts:
+  - assets/fonts
