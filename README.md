@@ -11,7 +11,7 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-BODSQUARE_SDK
+
 A wrapper around the Bodsquare communication APIs.
 
 ## Features
