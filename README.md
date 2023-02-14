@@ -22,10 +22,7 @@ A wrapper around the Bodsquare communication APIs.
 
 Add as a dependency:
 ```yaml
-bodsquare_sdk:
-    git:
-      url: https://github.com/sendchamp/bodsquare-flutter-sdk.git
-      ref: master
+bodsquare_sdk: latest_version
 ```
 
 #### ANDROID SETUP:
