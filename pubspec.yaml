@@ -1,6 +1,7 @@
 name: bodsquare_sdk
 description: A wrapper around Bodsquare communication APIs.
 version: 0.0.1
+homepage: https://github.com/sendchamp/bodsquare-flutter-sdk
 environment:
   sdk: ">=2.18.1 <3.0.0"
   flutter: ">=1.17.0"

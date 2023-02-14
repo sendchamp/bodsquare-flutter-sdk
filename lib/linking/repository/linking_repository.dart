@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:bodsquare_sdk/helpers/storage_service.dart';
 import 'package:bodsquare_sdk/helpers/token_check_interceptor.dart';
 import 'package:bodsquare_sdk/linking/models/get_whatsapp_connection_request/get_whatsapp_connection_request.dart';
 import 'package:bodsquare_sdk/linking/models/get_whatsapp_connection_response/get_whatsapp_connection_response.dart';
 import 'package:bodsquare_sdk/linking/models/login_user_request/login_user_request.dart';
 import 'package:bodsquare_sdk/linking/models/login_user_response/login_user_response.dart';
-import 'package:bodsquare_sdk/linking/repository/public_key_holder.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:bodsquare_sdk/linking/models/add_facebook_or_instagram_request.dart';
