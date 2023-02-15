@@ -1,11 +1,5 @@
-import 'dart:developer';
-
 import 'package:bodsquare_sdk/helpers/storage_service.dart';
 import 'package:dio/dio.dart';
-
-// import 'package:logger/logger.dart' as logging;
-
-// import '../../services/db_service.dart';
 
 class TokenCheckInterceptor extends InterceptorsWrapper {
   final List<String> ignoredRoutes = ['/open/auth/login'];
@@ -20,9 +14,17 @@ class TokenCheckInterceptor extends InterceptorsWrapper {
       RequestOptions options, RequestInterceptorHandler handler) async {
     // if request path is contained in [ignoredRoutes], do nothing
     if (ignoredRoutes.contains(options.path)) {
+      var env = await _storageService.getBool('env');
+      if (env == true) {
+        options.baseUrl = 'https://prod-api.bodsquare.com/api/v1';
+      }
     }
     // Else check for the token
     else {
+      var env = await _storageService.getBool('env');
+      if (env == true) {
+        options.baseUrl = 'https://prod-api.bodsquare.com/api/v1';
+      }
       // If its absent,
       if (!options.headers.containsKey('Authorization')) {
         // var token = _dbService.token;

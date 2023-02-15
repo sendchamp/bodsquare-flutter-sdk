@@ -46,13 +46,14 @@ class WebSocketService extends GetxService {
       //log("Internet Active");
 
       final String businessUid = await _storageService.getString('companyUid');
+      final bool env = await _storageService.getBool('env');
 
       try {
         //log('businessUid: $businessUid');
         await Future.delayed(const Duration(seconds: 10));
         channel = IOWebSocketChannel.connect(
           // "ws://178.62.97.4:3004",
-          kReleaseMode
+          kReleaseMode || env
               ? "wss://prod-api.bodsquare.com/$businessUid"
               : "wss://staging-api.bodsquare.com/$businessUid",
 

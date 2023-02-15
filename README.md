@@ -13,6 +13,8 @@ and the Flutter guide for
 
 
 A wrapper around the Bodsquare communication APIs.
+- Bodsquare allows for businesses to follow up with their customers from the moment they contact them until the end, regardless of the platform used.
+These include Whatsapp, Facebook and Instagram integrations.
 
 ## Features
 - Add your  facebook, instagram and whatsapp accounts as channels.
@@ -94,3 +96,10 @@ ElevatedButton(
 
 
 ```
+
+|Fields|Type|Description|
+|:---:|:---:|:---:|
+| **context** | `BuildContext` | A handle to the location of a widget in the widget tree. `Required`.|
+| **email** | `String` | Use for the initializing a user in the sdk. `Required`.|
+| **userName** | `String` | Also use for initializing and to log in a user. `Required`. |
+| **useProduction** | `bool` | Bodsquare_sdk provides a default test environment when an app is yet to be release and uses the production environment on release builds. Set this to true to test using the production environment. Defaults to `false`. |

@@ -18,15 +18,11 @@ import 'package:bodsquare_sdk/linking/models/get_social_media_connection_respons
 import 'package:bodsquare_sdk/linking/models/get_twitter_response.dart';
 import 'package:bodsquare_sdk/linking/models/get_whatsapp_response/get_whatsapp_response.dart';
 import 'package:bodsquare_sdk/linking/repository/linking_client.dart';
-// import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class LinkingRepository {
   final LinkingClient _linkingClient = LinkingClient(Dio(BaseOptions(
-    headers: {
-      // 'Content-Type': 'application/json',
-      // 'Accept': 'application/json',
-      // 'Authorization': ''
-    },
+    headers: {},
     baseUrl: kReleaseMode
         ? 'https://prod-api.bodsquare.com/api/v1'
         : 'https://staging-api.bodsquare.com/api/v1',

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:bodsquare_sdk/conversations/views/conversations_view.dart';
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
 import 'package:bodsquare_sdk/helpers/storage_service.dart';
@@ -12,9 +13,13 @@ import 'package:flutter_svg/svg.dart';
 
 class InitialLinkingView extends StatefulWidget {
   const InitialLinkingView(
-      {super.key, required this.email, required this.userName});
+      {super.key,
+      required this.email,
+      required this.userName,
+      this.useProduction = false});
   final String email;
   final String userName;
+  final bool useProduction;
 
   @override
   State<InitialLinkingView> createState() => _InitialLinkingViewState();
@@ -25,11 +30,17 @@ class _InitialLinkingViewState extends State<InitialLinkingView> {
   @override
   void initState() {
     Future.delayed(const Duration(milliseconds: 100), () async {
+      await setEnvironment();
+
       LinkingController linkingController = LinkingController(context: context);
       await getSocialAccounts(linkingController);
     });
 
     super.initState();
+  }
+
+  Future<void> setEnvironment() async {
+    _storageService.setBool('env', widget.useProduction);
   }
 
   bool loader = true;

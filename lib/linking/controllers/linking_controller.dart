@@ -443,6 +443,7 @@ class LinkingController extends GetxController {
   Future<String> getWhatsappConnectionUrl() async {
     // final String businessUid = await _storageService.getString('companyUid');
     final String businessToken = await _storageService.getString('token');
+    final bool env = await _storageService.getBool('env');
 
     try {
       getConnectionUrlLoadingStatus.value = true;
@@ -461,7 +462,7 @@ class LinkingController extends GetxController {
       // );
       // if (response.status == 'success') {
       //   // _loadingService.dismiss();
-      whatsappLink.value = kReleaseMode
+      whatsappLink.value = kReleaseMode || env
           ? 'https://dash.bodsquare.com/whatsapp?phone_number=$phone&token=$businessToken'
           : 'https://develop--bod-dashboard.netlify.app/whatsapp?phone_number=$phone&token=$businessToken';
       update();
