@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bodsquare_sdk/helpers/token_check_interceptor.dart';
 import 'package:bodsquare_sdk/linking/models/get_whatsapp_connection_request/get_whatsapp_connection_request.dart';
@@ -18,7 +17,6 @@ import 'package:bodsquare_sdk/linking/models/get_social_media_connection_respons
 import 'package:bodsquare_sdk/linking/models/get_twitter_response.dart';
 import 'package:bodsquare_sdk/linking/models/get_whatsapp_response/get_whatsapp_response.dart';
 import 'package:bodsquare_sdk/linking/repository/linking_client.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class LinkingRepository {
   final LinkingClient _linkingClient = LinkingClient(Dio(BaseOptions(
