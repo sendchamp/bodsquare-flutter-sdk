@@ -676,6 +676,7 @@ class LinkingController extends GetxController {
       } else {
         getConnectionUrlLoadingStatus.value = false;
         linkingError.value = response.message.toString();
+        debugPrint(response.message);
       }
     } catch (e) {
       if (e is DioError) {
