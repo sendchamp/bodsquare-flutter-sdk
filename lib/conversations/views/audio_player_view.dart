@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart' as ap;
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
@@ -173,7 +172,7 @@ class AudioPlayerState extends State<AudioPlayer> {
         await _audioPlayer.play(ap.DeviceFileSource(widget.source));
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     // return await _audioPlayer.play(
     //   ap.UrlSource(

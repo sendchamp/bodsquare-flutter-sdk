@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 class SearchConversationRequest extends Equatable {
   final String? token;
   final String? search;
-  SearchConversationRequest({
+  const SearchConversationRequest({
     this.token,
     this.search,
   });

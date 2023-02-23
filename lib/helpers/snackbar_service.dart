@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:another_flushbar/flushbar.dart';
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
 import 'package:bodsquare_sdk/r.g.dart';
@@ -84,7 +86,7 @@ class SnackBarService {
   SnackBarService(this.context);
 }
 
-final kPadding = 8.0; // up to you
+const kPadding = 8.0; // up to you
 
 class Snack {
   final BuildContext context;
@@ -146,7 +148,7 @@ class Snack {
 
   static Widget _getSnackbarIcon(SnackType type) {
     if (type == SnackType.error) {
-      return Icon(Icons.error_outline, color: d52108);
+      return const Icon(Icons.error_outline, color: d52108);
       // SvgPicture.asset(R.svg.asset.danger_icon.assetName);
     }
     if (type == SnackType.warning) {
@@ -154,7 +156,7 @@ class Snack {
       // SvgPicture.asset(R.svg.asset.info_circle_icon.assetName);
     }
     if (type == SnackType.info) {
-      return Icon(Icons.info_outline, color: zero066FF);
+      return const Icon(Icons.info_outline, color: zero066FF);
       // SvgPicture.asset(R.svg.asset.info_circle_icon.assetName);
     }
     if (type == SnackType.success) {

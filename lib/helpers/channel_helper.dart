@@ -11,7 +11,7 @@ class BodsquareChannels {
           'Send and recieve all your businesses Instagram messages within your inbox.',
       channelImage: R.svg.asset.instagram.assetName,
       channelIsConnected: false,
-      socialAccountData: GetSocialAccountData(),
+      socialAccountData: const GetSocialAccountData(),
     ),
     ChannelModel(
       channelId: '02',
@@ -20,7 +20,7 @@ class BodsquareChannels {
           'Send and recieve all your businesses Facebook messages within your inbox.',
       channelImage: R.svg.asset.facebook.assetName,
       channelIsConnected: false,
-      socialAccountData: GetSocialAccountData(),
+      socialAccountData: const GetSocialAccountData(),
     ),
     // ChannelModel(
     //   channelId: '03',
@@ -48,7 +48,7 @@ class BodsquareChannels {
           'Sending and recieving whatsapp messages would soon be coming on Bodsquare.',
       channelImage: R.svg.asset.whatsapp.assetName,
       channelIsConnected: false,
-      socialAccountData: GetSocialAccountData(),
+      socialAccountData: const GetSocialAccountData(),
     ),
   ];
 }

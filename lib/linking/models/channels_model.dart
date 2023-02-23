@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:convert';
 
 import 'package:bodsquare_sdk/linking/models/get_social_account/get_social_account.dart';

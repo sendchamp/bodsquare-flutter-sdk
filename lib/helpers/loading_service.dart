@@ -1,10 +1,6 @@
-import 'dart:developer';
-
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
-import 'package:bodsquare_sdk/helpers/snackbar_service.dart';
 import 'package:elegant_notification/elegant_notification.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
@@ -42,7 +38,7 @@ class LoadingService {
         context: context!,
         barrierDismissible: true,
         builder: (BuildContext context) {
-          return SpinKitFadingCircle(
+          return const SpinKitFadingCircle(
             color: ffffff,
           );
           // const SizedBox(
@@ -71,7 +67,7 @@ class LoadingService {
     Get.defaultDialog(
         title: description,
         titlePadding: const EdgeInsets.symmetric(vertical: 14),
-        content: Icon(
+        content: const Icon(
           Icons.check_circle,
           color: Colors.green,
           size: 40,
@@ -79,7 +75,7 @@ class LoadingService {
         contentPadding:
             const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         radius: 4);
-    await Future.delayed(Duration(milliseconds: 1600));
+    await Future.delayed(const Duration(milliseconds: 1600));
     hideLoading();
   }
 

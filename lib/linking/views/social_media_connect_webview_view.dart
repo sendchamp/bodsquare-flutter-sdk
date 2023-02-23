@@ -1,4 +1,5 @@
-import 'dart:developer';
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'dart:io';
 
 import 'package:bodsquare_sdk/linking/models/twitter_data.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class SocialMediaConnectWebviewView extends StatefulWidget {
+  const SocialMediaConnectWebviewView({super.key});
+
   @override
   State<SocialMediaConnectWebviewView> createState() =>
       _SocialMediaConnectWebviewViewState();
@@ -32,7 +35,7 @@ class _SocialMediaConnectWebviewViewState
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Connect with Twitter'),
+        title: const Text('Connect with Twitter'),
         centerTitle: true,
       ),
       body: Stack(

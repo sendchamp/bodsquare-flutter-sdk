@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
 import 'package:bodsquare_sdk/helpers/loading_helper.dart';
-import 'package:bodsquare_sdk/helpers/loading_service.dart';
 import 'package:bodsquare_sdk/linking/controllers/linking_controller.dart';
 import 'package:bodsquare_sdk/r.g.dart';
 import 'package:elegant_notification/elegant_notification.dart';

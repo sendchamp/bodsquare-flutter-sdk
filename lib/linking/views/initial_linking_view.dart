@@ -1,5 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
-import 'dart:developer';
 import 'package:bodsquare_sdk/conversations/views/conversations_view.dart';
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
 import 'package:bodsquare_sdk/helpers/storage_service.dart';

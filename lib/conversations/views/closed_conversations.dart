@@ -6,17 +6,10 @@
 // import 'package:bodsquare/app/services/bodsquare_app_data.dart';
 // import 'package:bodsquare/app/themes/themes.dart';
 // import 'package:bodsquare/app/widgets/swipe_to_dismiss_widget.dart';
-import 'package:bodsquare_sdk/helpers/font_styles.dart';
-import 'package:bodsquare_sdk/r.g.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ClosedConversations extends StatelessWidget {
-  ClosedConversations({
+  const ClosedConversations({
     Key? key,
   }) : super(key: key);
 
@@ -28,9 +21,7 @@ class ClosedConversations extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('ClosedConversations'),
-    );
+    return const Text('ClosedConversations');
     // return controller.closedConversationsListLength.value == 0
     //     ? Column(
     //         mainAxisAlignment: MainAxisAlignment.center,

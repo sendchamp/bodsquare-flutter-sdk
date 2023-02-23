@@ -1,4 +1,5 @@
-import 'dart:developer';
+// ignore_for_file: unused_local_variable, use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:bodsquare_sdk/helpers/clipboard_service.dart';
@@ -19,7 +20,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class LinkingConnectView extends StatelessWidget {
@@ -194,10 +194,137 @@ class LinkingConnectView extends StatelessWidget {
                           channel.channelName!.toLowerCase() == 'twitter'
                               ? await _.getTwitterConnectionUrl()
                               : channel.channelName!.toLowerCase() == 'facebook'
-                                  ? await _.getFacebookConnectionUrl()
+                                  ? await _
+                                      .getFacebookConnectionUrl()
+                                      .then((value) {
+                                      kIsWeb
+                                          ? showModalBottomSheet(
+                                              context: context,
+                                              builder: ((bcontext) {
+                                                final TextEditingController
+                                                    urlController =
+                                                    TextEditingController();
+                                                return Container(
+                                                  // textfield to input url
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 24,
+                                                      vertical: 24),
+                                                  child: Column(
+                                                    children: [
+                                                      TextFormField(
+                                                        controller:
+                                                            urlController,
+                                                        decoration:
+                                                            inputDecoration
+                                                                .copyWith(
+                                                          hintText:
+                                                              'Enter the copied URL here',
+                                                        ),
+                                                        keyboardType:
+                                                            TextInputType.name,
+                                                        textCapitalization:
+                                                            TextCapitalization
+                                                                .characters,
+                                                        onChanged: (value) {},
+                                                        validator: (value) {
+                                                          if (value
+                                                              .toString()
+                                                              .isNotEmpty) {
+                                                            return null;
+                                                          }
+                                                          return 'invalid url';
+                                                        },
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 20,
+                                                      ),
+                                                      ElevatedButton(
+                                                          style:
+                                                              primaryButtonStyle,
+                                                          onPressed: () async {
+                                                            Navigator.pop(
+                                                                bcontext);
+                                                            await _.processLink(
+                                                                urlController
+                                                                    .text);
+                                                          },
+                                                          child: const Text(
+                                                              'Continue'))
+                                                    ],
+                                                  ),
+                                                );
+                                              }))
+                                          : debugPrint('done');
+                                    })
                                   : channel.channelName!.toLowerCase() ==
                                           'instagram'
-                                      ? await _.getInstagramConnectionUrl()
+                                      ? await _
+                                          .getInstagramConnectionUrl()
+                                          .then((value) {
+                                          kIsWeb
+                                              ? showModalBottomSheet(
+                                                  context: context,
+                                                  builder: ((bcontext) {
+                                                    final TextEditingController
+                                                        urlController =
+                                                        TextEditingController();
+                                                    return Container(
+                                                      // textfield to input url
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 24,
+                                                          vertical: 24),
+                                                      child: Column(
+                                                        children: [
+                                                          TextFormField(
+                                                            controller:
+                                                                urlController,
+                                                            decoration:
+                                                                inputDecoration
+                                                                    .copyWith(
+                                                              hintText:
+                                                                  'Enter the copied URL here',
+                                                            ),
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .name,
+                                                            textCapitalization:
+                                                                TextCapitalization
+                                                                    .characters,
+                                                            onChanged:
+                                                                (value) {},
+                                                            validator: (value) {
+                                                              if (value
+                                                                  .toString()
+                                                                  .isNotEmpty) {
+                                                                return null;
+                                                              }
+                                                              return 'invalid url';
+                                                            },
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 20,
+                                                          ),
+                                                          ElevatedButton(
+                                                              style:
+                                                                  primaryButtonStyle,
+                                                              onPressed:
+                                                                  () async {
+                                                                Navigator.pop(
+                                                                    bcontext);
+                                                                await _.processLink(
+                                                                    urlController
+                                                                        .text);
+                                                              },
+                                                              child: const Text(
+                                                                  'Submit'))
+                                                        ],
+                                                      ),
+                                                    );
+                                                  }))
+                                              : debugPrint('done');
+                                        })
                                       : channel.channelName!.toLowerCase() ==
                                               'whatsapp'
                                           ? await _
@@ -243,7 +370,7 @@ class TwitterInstructions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -302,7 +429,7 @@ class _WhatsappInstructionsState extends State<WhatsappInstructions> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -362,7 +489,7 @@ class FacebookInstructions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -408,6 +535,32 @@ class FacebookInstructions extends StatelessWidget {
               ),
             ],
           ),
+          kIsWeb
+              ? const SizedBox(
+                  height: 24,
+                )
+              : const SizedBox(),
+          kIsWeb
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SvgPicture.asset(
+                      R.svg.asset.tick_circle.assetName,
+                      package: "bodsquare_sdk",
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Copy the url on the connection success screen and come back to paste in the box provided',
+                        style: satoshiRegular14.copyWith(color: oneA1A1A),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ],
+                )
+              : const SizedBox(),
         ],
       ),
     );
@@ -421,7 +574,7 @@ class InstagramInstructions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -554,6 +707,32 @@ class InstagramInstructions extends StatelessWidget {
               ),
             ],
           ),
+          kIsWeb
+              ? const SizedBox(
+                  height: 24,
+                )
+              : const SizedBox(),
+          kIsWeb
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SvgPicture.asset(
+                      R.svg.asset.tick_circle.assetName,
+                      package: "bodsquare_sdk",
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Copy the url on the connection success screen and come back to paste in the box provided',
+                        style: satoshiRegular14.copyWith(color: oneA1A1A),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ],
+                )
+              : const SizedBox(),
         ],
       ),
     );
@@ -575,6 +754,8 @@ class _GuidesBottomSheet extends StatefulWidget {
 class _GuidesBottomSheetState extends State<_GuidesBottomSheet> {
   @override
   void initState() {
+    super.initState();
+  
     // launchUrl(Uri.parse(url ?? ''));
     // super.initState();
   }
@@ -759,10 +940,10 @@ class FinishWhatsappSetup extends StatelessWidget {
   }
 
   Widget getImagenBase64(String? imagen) {
-    String? _imageBase64 = imagen;
+    String? imageBase64 = imagen;
     const Base64Codec base64 = Base64Codec();
-    if (_imageBase64 == null || _imageBase64.isEmpty) return Container();
-    var bytes = base64.decode(_imageBase64);
+    if (imageBase64 == null || imageBase64.isEmpty) return Container();
+    var bytes = base64.decode(imageBase64);
     return Image.memory(
       bytes,
       width: 96,

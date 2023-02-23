@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -23,6 +25,7 @@ class ViewAttachmentPage extends StatelessWidget {
   }) : super(key: key);
 
   final ConversationMessage message;
+  // ignore: unused_field
   final ConversationsController _controller = Get.find();
   final LoadingService _loadingService = Get.find();
   final MessageType messageType;
@@ -37,25 +40,26 @@ class ViewAttachmentPage extends StatelessWidget {
           foregroundColor: two92D32,
         ),
         body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(child: SizedBox()),
+              const Expanded(child: SizedBox()),
               messageType == MessageType.image
-                  ? Container(
+                  ? SizedBox(
                       height: 285,
                       width: 329,
                       child: message.message!.contains('http')
                           ? CachedNetworkImage(
                               imageUrl: message.message ?? '',
-                              placeholder: (context, url) => Center(
+                              placeholder: (context, url) => const Center(
                                 child: Icon(
                                   Icons.image,
                                   color: ffffff,
                                 ),
                               ),
-                              errorWidget: (context, url, error) => Center(
+                              errorWidget: (context, url, error) =>
+                                  const Center(
                                 child: Icon(
                                   Icons.broken_image_rounded,
                                   color: ffffff,
@@ -69,15 +73,15 @@ class ViewAttachmentPage extends StatelessWidget {
                               : Container(),
                     )
                   : Container(),
-              Expanded(
+              const Expanded(
                 child: SizedBox(),
               ),
               TextButton(
                   onPressed: () {
                     downloadFile(message.message.toString(), context);
                   },
-                  child: Text('Download')),
-              SizedBox(
+                  child: const Text('Download')),
+              const SizedBox(
                 height: 45,
               )
             ],
@@ -95,17 +99,17 @@ class ViewAttachmentPage extends StatelessWidget {
 
         directory = await getExternalStorageDirectory();
         String newPath = "";
-        print(directory);
+        debugPrint(directory.toString());
         List<String> paths = directory!.path.split("/");
         for (int x = 1; x < paths.length; x++) {
           String folder = paths[x];
           if (folder != "Android") {
-            newPath += "/" + folder;
+            newPath += "/$folder";
           } else {
             break;
           }
         }
-        newPath = newPath + "/Image";
+        newPath = "$newPath/Image";
         directory = Directory(newPath);
         if (!directory.existsSync()) {
           directory.create(recursive: true);
@@ -118,7 +122,7 @@ class ViewAttachmentPage extends StatelessWidget {
           return false;
         }
       }
-      File saveFile = File(directory.path + "/$fileName");
+      File saveFile = File("${directory.path}/$fileName");
 
       if (await directory.exists()) {
         final dd = await directory.exists();
@@ -138,7 +142,7 @@ class ViewAttachmentPage extends StatelessWidget {
       }
       return false;
     } catch (e) {
-      print(e);
+      // print(e);
       return false;
     }
   }

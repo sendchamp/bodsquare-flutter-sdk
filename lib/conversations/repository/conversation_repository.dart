@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:bodsquare_sdk/conversations/models/block_and_unblock_contact_request/block_and_unblock_contact_request.dart';

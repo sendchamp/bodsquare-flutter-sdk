@@ -78,7 +78,7 @@ class AudioPlayerPreviewState extends State<AudioPlayerPreview> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.black87,
             borderRadius: borderRadiusTopLR24,
           ),
@@ -118,7 +118,7 @@ class AudioPlayerPreviewState extends State<AudioPlayerPreview> {
                       channelName: widget.channelName,
                     );
                   },
-                  style: ElevatedButton.styleFrom(primary: zero066FF),
+                  style: ElevatedButton.styleFrom(backgroundColor: zero066FF),
                   child: const Text('Send')),
               const SizedBox(
                 height: 50,
@@ -138,6 +138,7 @@ class AudioPlayerPreviewState extends State<AudioPlayerPreview> {
       icon = const Icon(Icons.pause, color: zero066FF, size: 30);
       color = zero066FF.withOpacity(0.1);
     } else {
+      // ignore: unused_local_variable
       final theme = Theme.of(context);
       icon = const Icon(Icons.play_arrow, color: zero066FF, size: 30);
       color = zero066FF.withOpacity(0.1);
@@ -175,6 +176,7 @@ class AudioPlayerPreviewState extends State<AudioPlayerPreview> {
       canSetValue &= position.inMilliseconds < duration.inMilliseconds;
     }
 
+    // ignore: unused_local_variable
     double width = widgetWidth - _controlSize - _deleteBtnSize;
     width -= _deleteBtnSize;
 

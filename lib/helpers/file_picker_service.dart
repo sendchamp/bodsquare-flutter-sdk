@@ -1,7 +1,7 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FilePickerService {
@@ -49,6 +49,61 @@ class FilePickerService {
       List<File?> files = [];
       for (var file in result.files) {
         files.add(File(file.path ?? ''));
+      }
+      // File? file = File(result.files.single.path!);
+      // log('image gotten');
+      return files;
+    } else {
+      // User canceled the picker
+      return [];
+    }
+  }
+
+//select file for flutter web
+  Future<List<Uint8List?>> selectWebFile() async {
+    var result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.custom,
+      allowedExtensions: [
+        'jpg',
+        'jpeg',
+        'png',
+        'gif',
+        'svg',
+        'webp',
+        'bmp',
+        'pdf',
+        'doc',
+        'docx',
+        'xls',
+        'xlsx',
+        'ppt',
+        'pptx',
+        'txt',
+        'csv',
+        'zip',
+        'rar',
+        '7z',
+        'mp3',
+        'mp4',
+        'wav',
+        'avi',
+        'flv',
+        'mov',
+        'wmv',
+        'mpg',
+        'mpeg',
+        'm4v',
+        '3gp',
+        'mkv',
+        'webm',
+      ],
+    );
+
+    if (result != null) {
+      List<Uint8List?> files = [];
+      for (var file in result.files) {
+        files.add(file.bytes);
       }
       // File? file = File(result.files.single.path!);
       // log('image gotten');
@@ -115,6 +170,7 @@ class FilePickerService {
       var image = await (_picker.pickMultiImage(imageQuality: 60));
       //log('image gotten');
 
+      // ignore: unnecessary_null_comparison
       if (image != null && image.isNotEmpty) {
         List<File?> file = image.map((i) => File(i.path)).toList();
         // File(image.path);
@@ -152,6 +208,7 @@ class FilePickerService {
       return;
     }
     if (response.files != null) {
+      // ignore: unused_local_variable
       for (final XFile file in response.files!) {
         //log(file.path);
       }

@@ -6,14 +6,11 @@
 // import 'package:bodsquare/app/services/bodsquare_app_data.dart';
 // import 'package:bodsquare/app/themes/themes.dart';
 // import 'package:bodsquare/app/widgets/swipe_to_dismiss_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 // import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PendingConversations extends StatelessWidget {
-  PendingConversations({
+  const PendingConversations({
     Key? key,
   }) : super(key: key);
 
@@ -25,9 +22,7 @@ class PendingConversations extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('PendingConversations'),
-    );
+    return const Text('PendingConversations');
     // return controller.pendingConversationsListLength.value == 0
     //     ?
     //     Column(

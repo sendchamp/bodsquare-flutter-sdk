@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 class TwitterData extends Equatable {
   final String? oAuthVerifier;
   final String? oAuthToken;
-  TwitterData({
+  const TwitterData({
     this.oAuthVerifier,
     this.oAuthToken,
   });

@@ -1,15 +1,13 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, prefer_typing_uninitialized_variables, unused_element
 import 'dart:convert';
 
 import 'package:bodsquare_sdk/helpers/channel_helper.dart';
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
-import 'package:bodsquare_sdk/helpers/get_social_account_data.dart';
 import 'package:bodsquare_sdk/helpers/storage_service.dart';
 import 'package:bodsquare_sdk/linking/controllers/linking_controller.dart';
 import 'package:bodsquare_sdk/linking/models/get_social_account/get_social_account.dart';
 import 'package:bodsquare_sdk/linking/models/get_whatsapp_response/get_whatsapp_response.dart';
 import 'package:bodsquare_sdk/linking/views/disconnect_account_view.dart';
-import 'package:bodsquare_sdk/linking/views/initial_linking_view.dart';
 import 'package:bodsquare_sdk/linking/views/linking_connect_view.dart';
 import 'package:bodsquare_sdk/r.g.dart';
 import 'package:flutter/material.dart';

@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:bodsquare_sdk/helpers/channel_helper.dart';
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
-import 'package:bodsquare_sdk/helpers/loading_service.dart';
 import 'package:bodsquare_sdk/linking/controllers/linking_controller.dart';
 import 'package:bodsquare_sdk/linking/models/get_social_account/get_social_account.dart';
 import 'package:bodsquare_sdk/helpers/get_social_account_data.dart';
@@ -13,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LinkingView extends StatefulWidget {
-  LinkingView({Key? key}) : super(key: key);
+  const LinkingView({Key? key}) : super(key: key);
 
   static const linkingStep1Text = 'Connect your channel';
 
@@ -66,9 +63,10 @@ class _LinkingViewState extends State<LinkingView> {
   @override
   Widget build(BuildContext context) {
     // EasyLoading.init();
+    // ignore: unused_local_variable
     LinkingController linkingController = LinkingController(context: context)
       ..init();
-    final LoadingService _loadingService = LoadingService(context: context);
+    // final LoadingService _loadingService = LoadingService(context: context);
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,

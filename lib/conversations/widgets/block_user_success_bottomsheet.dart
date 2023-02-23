@@ -14,7 +14,7 @@ class BlockUserSuccessBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration:
-          BoxDecoration(color: ffffff, borderRadius: borderRadiusTopLR32),
+          const BoxDecoration(color: ffffff, borderRadius: borderRadiusTopLR32),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,

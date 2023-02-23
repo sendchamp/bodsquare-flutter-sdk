@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 class ReportConversationRequest extends Equatable {
   final String? token;
   final String? reason;
-  ReportConversationRequest({
+  const ReportConversationRequest({
     this.token,
     this.reason,
   });

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:bodsquare_sdk/conversations/controllers/conversations_controller.dart';
@@ -37,7 +36,7 @@ class _InstaStoryWebViewState extends State<InstaStoryWebView> {
       builder: (_) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Instagram Story'),
+            title: const Text('Instagram Story'),
             backgroundColor: zero066FF,
             centerTitle: true,
           ),

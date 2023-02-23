@@ -1,13 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 
-import 'package:bodsquare_sdk/helpers/loading_service.dart';
 import 'package:bodsquare_sdk/helpers/get_social_account_data.dart';
+import 'package:bodsquare_sdk/helpers/loading_service.dart';
 import 'package:bodsquare_sdk/helpers/storage_service.dart';
-import 'package:bodsquare_sdk/linking/models/get_whatsapp_connection_request/get_whatsapp_connection_request.dart';
-import 'package:bodsquare_sdk/linking/models/login_user_request/login_user_request.dart';
-import 'package:bodsquare_sdk/linking/repository/linking_repository.dart';
 import 'package:bodsquare_sdk/linking/models/add_facebook_or_instagram_request.dart';
 import 'package:bodsquare_sdk/linking/models/add_twitter_channel_request.dart';
 import 'package:bodsquare_sdk/linking/models/delete_social_media_response.dart';
@@ -16,16 +14,17 @@ import 'package:bodsquare_sdk/linking/models/get_facebook_response.dart';
 import 'package:bodsquare_sdk/linking/models/get_instagram_response.dart';
 import 'package:bodsquare_sdk/linking/models/get_social_account/get_social_account.dart';
 import 'package:bodsquare_sdk/linking/models/get_twitter_response.dart';
+
+import 'package:bodsquare_sdk/linking/models/login_user_request/login_user_request.dart';
 import 'package:bodsquare_sdk/linking/models/page_id_response.dart';
 import 'package:bodsquare_sdk/linking/models/twitter_data.dart';
-
+import 'package:bodsquare_sdk/linking/repository/linking_repository.dart';
+import 'package:bodsquare_sdk/linking/views/social_media_connect_webview_view.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:bodsquare_sdk/linking/views/social_media_connect_webview_view.dart';
 import 'package:get/get.dart';
-
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -100,6 +99,7 @@ class LinkingController extends GetxController {
         _initialURILinkHandled = true;
       } on PlatformException {
         //log('failed to receive initial Url');
+        // ignore: unused_catch_clause
       } on FormatException catch (e) {
         //log('failed to parse initial Url');
       }
@@ -130,6 +130,20 @@ class LinkingController extends GetxController {
         //
         _streamSubscription?.cancel();
       });
+    } else {
+      // add listener for web
+      // Stream.periodic(Duration(seconds: 1)).listen((event) {
+      // if (js.context['location']['href'] != null) {
+      // //log('web detected');
+      // //log('listener added');
+      // var uri = Uri.tryParse(js.context['location']['href']);
+      // if (uri != null) {
+      //   //log('uri: $uri');
+      // }
+      // }
+      // String uri = window.location.href;
+      // //log('web detected::::::::::; $uri');
+      // });
     }
   }
 
@@ -318,22 +332,6 @@ class LinkingController extends GetxController {
     }
   }
 
-  // deleteSocialAccount(
-  //   ChannelModel channel,
-  //   String uid,
-  // ) async {
-  //   // await _linkingController
-  //   //     .removeFbOrInstaSocialMedia(id: uid, channel: channel)
-  //   //     .then((value) => update());
-  //   channel.channelName?.toLowerCase() == 'twitter'
-  //       ? await deleteTwitter(uid)
-  //       : channel.channelName?.toLowerCase() == 'facebook'
-  //           ? await deleteFacebook(uid)
-  //           : channel.channelName?.toLowerCase() == 'instagram'
-  //               ? await deleteInstagram(uid)
-  //               : //log('platform not found');
-  // }
-
   Future<void> getTwitterConnectionUrl() async {
     _incomingLinkHandler();
     try {
@@ -343,13 +341,10 @@ class LinkingController extends GetxController {
         _loadingService.dismiss();
         //log(response.data.toString());
 
-        // final TwitterData? twitterData = await Get.to(
-        //     SocialMediaConnectWebviewView(),
-
         final TwitterData? twitterData = await Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => SocialMediaConnectWebviewView(),
+                builder: (context) => const SocialMediaConnectWebviewView(),
                 settings: RouteSettings(arguments: response.data)));
         if (twitterData != null) {
           //log('twitter data: ${twitterData.toString()}');
@@ -670,12 +665,14 @@ class LinkingController extends GetxController {
         await _storageService.setString('token', response.data?.apiKey ?? '');
         await _storageService.setString(
             'companyUid', response.data?.companyUid ?? '');
+        // ignore: unused_local_variable
         final token = await _storageService.getString('token');
 
         //log('token: $token');
       } else {
         getConnectionUrlLoadingStatus.value = false;
         linkingError.value = response.message.toString();
+        debugPrint(response.message);
       }
     } catch (e) {
       if (e is DioError) {
@@ -717,7 +714,7 @@ class LinkingController extends GetxController {
 
       // _bodSquareAppData.getSocialAccountData.value = acc;
 
-      // //log(_bodSquareAppData.getSocialAccountData.value.toString());
+      // log(_bodSquareAppData.getSocialAccountData.value.toString());
     } catch (e) {
       //log(e.toString());
     }

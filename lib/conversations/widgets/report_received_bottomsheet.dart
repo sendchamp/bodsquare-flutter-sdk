@@ -17,12 +17,12 @@ class ReportReceivedBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration:
-          BoxDecoration(color: ffffff, borderRadius: borderRadiusTopLR32),
+          const BoxDecoration(color: ffffff, borderRadius: borderRadiusTopLR32),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
           Container(
@@ -31,14 +31,14 @@ class ReportReceivedBottomSheet extends StatelessWidget {
             decoration:
                 BoxDecoration(color: d8D8D8, borderRadius: borderRadius3),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Text(
             'Report Recieved',
             style: satoshiBold16.copyWith(color: oneA1A1A),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Text(
@@ -46,10 +46,10 @@ class ReportReceivedBottomSheet extends StatelessWidget {
             style: satoshiRegular14.copyWith(color: nine99999),
             textAlign: TextAlign.center,
           ),
-          SizedBox(
+          const SizedBox(
             height: 32,
           ),
-          Divider(
+          const Divider(
             color: f8F8F8,
             thickness: 2,
           ),
@@ -67,14 +67,14 @@ class ReportReceivedBottomSheet extends StatelessWidget {
                 'Block user',
                 style: satoshiMedium14.copyWith(color: fFF1C36),
               )),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
-          Divider(
+          const Divider(
             color: f8F8F8,
             thickness: 2,
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           TextButton(
@@ -85,7 +85,7 @@ class ReportReceivedBottomSheet extends StatelessWidget {
                 'Cancel',
                 style: satoshiMedium14.copyWith(color: oneA1A1A),
               )),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
         ],

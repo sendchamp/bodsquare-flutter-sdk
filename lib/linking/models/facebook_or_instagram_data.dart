@@ -9,7 +9,7 @@ class FaceBookOrInstagramData extends Equatable {
   final String? access_token;
   final String? platform;
   final String? page_name;
-  FaceBookOrInstagramData({
+  const FaceBookOrInstagramData({
     this.page_id,
     this.access_token,
     this.platform,

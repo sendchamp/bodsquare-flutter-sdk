@@ -16,7 +16,7 @@ import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ActiveConversations extends StatefulWidget {
-  ActiveConversations({
+  const ActiveConversations({
     Key? key,
   }) : super(key: key);
 
@@ -158,16 +158,7 @@ class _ActiveConversationsState extends State<ActiveConversations> {
                                     //     activeConversationController,
                                     // index: index),
                                     title: Text(
-                                      (controller.activeConversationsList[index]
-                                                  .contact?.firstName ??
-                                              '') +
-                                          ' ' +
-                                          (controller
-                                                  .activeConversationsList[
-                                                      index]
-                                                  .contact
-                                                  ?.lastName ??
-                                              ''),
+                                      '${controller.activeConversationsList[index].contact?.firstName ?? ''} ${controller.activeConversationsList[index].contact?.lastName ?? ''}',
                                       style: satoshiBold16.copyWith(
                                           color: oneA1A1A),
                                     ),
@@ -187,7 +178,7 @@ class _ActiveConversationsState extends State<ActiveConversations> {
                                             // maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                           )
-                                        : Text(
+                                        : const Text(
                                             'Attachment',
                                             style: satoshiRegular12,
                                             // maxLines: 2,
@@ -211,6 +202,7 @@ class _ActiveConversationsState extends State<ActiveConversations> {
   }
 }
 
+// ignore: must_be_immutable
 class ProfilePlatformIndicator extends StatelessWidget {
   ProfilePlatformIndicator({
     Key? key,
@@ -269,7 +261,7 @@ class ProfilePlatformIndicator extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            child: Container(
+            child: SizedBox(
               width: 16,
               height: 16,
               child: platform?.toLowerCase() == 'whatsapp'
@@ -337,7 +329,7 @@ class _LastChatInfo extends StatelessWidget {
                       .activeConversationsList[index].updatedAt
                       ?.toLocal() as DateTime),
         ),
-        Container(
+        SizedBox(
           height: 25,
           width: 25,
           child: activeConversationController
