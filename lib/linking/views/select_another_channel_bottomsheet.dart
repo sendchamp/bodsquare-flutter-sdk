@@ -1,4 +1,3 @@
-import 'package:bodsquare_sdk/helpers/channel_helper.dart';
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
 import 'package:bodsquare_sdk/linking/controllers/linking_controller.dart';
 import 'package:bodsquare_sdk/linking/views/connected_accounts_view.dart';

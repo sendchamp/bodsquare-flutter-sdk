@@ -1,15 +1,13 @@
 // import 'package:bodsquare/app/extensions/string_extensions.dart';
 
-import 'dart:developer';
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'dart:io';
 
-import 'package:another_flushbar/flushbar.dart';
-import 'package:another_flushbar/flushbar_route.dart';
 import 'package:any_link_preview/any_link_preview.dart';
 import 'package:bodsquare_sdk/conversations/controllers/conversations_controller.dart';
 import 'package:bodsquare_sdk/conversations/models/conversation_model/conversation_message.dart';
 import 'package:bodsquare_sdk/conversations/models/get_all_conversations/get_all_conversations.dart';
-import 'package:bodsquare_sdk/conversations/views/active_conversations.dart';
 import 'package:bodsquare_sdk/conversations/views/audio_player_view.dart';
 import 'package:bodsquare_sdk/conversations/views/audio_recorder_page.dart';
 import 'package:bodsquare_sdk/conversations/views/file_preview_page.dart';
@@ -17,13 +15,13 @@ import 'package:bodsquare_sdk/conversations/views/insta_story.dart';
 import 'package:bodsquare_sdk/conversations/views/view_attachment_page.dart';
 import 'package:bodsquare_sdk/conversations/views/view_video_page.dart';
 import 'package:bodsquare_sdk/conversations/widgets/attachments_bottomsheet.dart';
-import 'package:bodsquare_sdk/conversations/widgets/report_conversation_bottomsheet.dart';
 import 'package:bodsquare_sdk/conversations/widgets/unblock_user_bottomsheet.dart';
 import 'package:bodsquare_sdk/helpers/date_time_extension.dart';
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
 import 'package:bodsquare_sdk/helpers/loading_service.dart';
 import 'package:bodsquare_sdk/r.g.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
@@ -58,7 +56,6 @@ class _ActiveConversationChatState extends State<ActiveConversationChat> {
   @override
   void initState() {
     _conversationsController.getOfflineMessage(widget.item.uid ?? '');
-    //log('initState');
     _conversationsController.addListenerToTextMessageController();
     _conversationsController.singleConversation.value = true;
     _conversationsController.currentContactId.value =
@@ -67,9 +64,6 @@ class _ActiveConversationChatState extends State<ActiveConversationChat> {
         widget.item.uid ?? '';
     _conversationsController.getSingleConversation(widget.item.uid ?? '');
     _conversationsController.currentChannel.value = widget.item.channel ?? '';
-    //log(_conversationsController.singleConversation.value.toString());
-
-    // _conversationsController.update();
 
     super.initState();
   }
@@ -81,7 +75,6 @@ class _ActiveConversationChatState extends State<ActiveConversationChat> {
     _conversationsController.singleConversation.value = false;
     _conversationsController.currentContactId.value = '';
     _conversationsController.currentConversationId.value = '';
-    //log(_conversationsController.singleConversation.value.toString());
     _conversationsController.textMessageController.clear();
     _conversationsController.removeTextMessageControllerListener();
 
@@ -90,10 +83,7 @@ class _ActiveConversationChatState extends State<ActiveConversationChat> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ConversationsController>(
-
-        // init: ConversationsController(),
-        builder: (_controller) {
+    return GetBuilder<ConversationsController>(builder: (_controller) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (_conversationsController.scrollController.hasClients) {
           _conversationsController.scrollController.jumpTo(
@@ -108,7 +98,7 @@ class _ActiveConversationChatState extends State<ActiveConversationChat> {
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
               children: [
-                Container(
+                SizedBox(
                   width: Get.width,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -182,12 +172,7 @@ class _ActiveConversationChatState extends State<ActiveConversationChat> {
                                       CrossAxisAlignment.stretch,
                                   children: [
                                     Text(
-                                        (widget.item.contact?.firstName ?? '') +
-                                            ' ' +
-                                            (widget.item.contact?.lastName ??
-                                                    '')
-                                                .capitalize
-                                                .toString(),
+                                        '${widget.item.contact?.firstName ?? ''} ${(widget.item.contact?.lastName ?? '').capitalize}',
                                         style: satoshiBold16.copyWith(
                                           color: oneA1A1A,
                                         )),
@@ -416,61 +401,59 @@ class _DeleteConversation extends StatelessWidget {
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(12))),
       alignment: Alignment.center,
-      content: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Deleting this message will only delete a copy of the message on the Bodsquare app',
-              style: satoshiMedium14.copyWith(color: oneA1A1A, height: 1.5),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 40),
-            const Divider(
-              color: f8F8F8,
-            ),
-            IntrinsicHeight(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextButton(
-                      child: Text(
-                        'Cancel',
-                        style: satoshiMedium14.copyWith(color: oneA1A1A),
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Deleting this message will only delete a copy of the message on the Bodsquare app',
+            style: satoshiMedium14.copyWith(color: oneA1A1A, height: 1.5),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 40),
+          const Divider(
+            color: f8F8F8,
+          ),
+          IntrinsicHeight(
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextButton(
+                    child: Text(
+                      'Cancel',
+                      style: satoshiMedium14.copyWith(color: oneA1A1A),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
 
-                        // Navigator.pop(context);
-                        activeConversationController.update();
-                      },
-                    ),
+                      // Navigator.pop(context);
+                      activeConversationController.update();
+                    },
                   ),
-                  const VerticalDivider(
-                    color: f8F8F8,
+                ),
+                const VerticalDivider(
+                  color: f8F8F8,
+                ),
+                Expanded(
+                  child: TextButton(
+                    child: Text('Delete',
+                        style: satoshiMedium14.copyWith(color: f63115)),
+                    onPressed: () {
+                      activeConversationController.deleteMessage(
+                        conversationId: conversationId,
+                        messageId: messageId,
+                        channelName: channelName,
+                      );
+                      //
+                      activeConversationController.update();
+                      Navigator.pop(context);
+                    },
                   ),
-                  Expanded(
-                    child: TextButton(
-                      child: Text('Delete',
-                          style: satoshiMedium14.copyWith(color: f63115)),
-                      onPressed: () {
-                        activeConversationController.deleteMessage(
-                          conversationId: conversationId,
-                          messageId: messageId,
-                          channelName: channelName,
-                        );
-                        //
-                        activeConversationController.update();
-                        Navigator.pop(context);
-                      },
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
@@ -497,56 +480,54 @@ class _ConfirmCopyOrDeleteConversation extends StatelessWidget {
       alignment: Alignment.center,
       child: Builder(builder: (context) {
         return IntrinsicWidth(
-          child: Container(
-            child: Row(
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                    onPressed: () async {
-                      Navigator.pop(context);
+          child: Row(
+            // crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                  onPressed: () async {
+                    Navigator.pop(context);
 
-                      //log('copy pressed');
-                      await activeConversationController.clipboardService
-                          .copy(chat.message ?? '')
-                          .then(
-                        (value) {
-                          //log('copied');
-                          BuildContext? dialogContext;
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                dialogContext = context;
-                                return const AlertDialog(
-                                  content: Text('Copied'),
-                                );
-                              });
-                          Future.delayed(const Duration(seconds: 1), () {
-                            //log('dialog is current ${ModalRoute.of(dialogContext!)?.isCurrent}');
-                            Navigator.pop(dialogContext!);
-                          });
-                        },
-                      );
-                    },
-                    icon: const Icon(Icons.copy)),
-                IconButton(
-                    onPressed: () {
-                      //log('delete PRessed');
-                      Navigator.pop(context);
+                    //log('copy pressed');
+                    await activeConversationController.clipboardService
+                        .copy(chat.message ?? '')
+                        .then(
+                      (value) {
+                        //log('copied');
+                        BuildContext? dialogContext;
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              dialogContext = context;
+                              return const AlertDialog(
+                                content: Text('Copied'),
+                              );
+                            });
+                        Future.delayed(const Duration(seconds: 1), () {
+                          //log('dialog is current ${ModalRoute.of(dialogContext!)?.isCurrent}');
+                          Navigator.pop(dialogContext!);
+                        });
+                      },
+                    );
+                  },
+                  icon: const Icon(Icons.copy)),
+              IconButton(
+                  onPressed: () {
+                    //log('delete PRessed');
+                    Navigator.pop(context);
 
-                      showDialog(
-                        context: context,
-                        builder: (context) => _DeleteConversation(
-                          conversationId: conversationId,
-                          messageId: chat.uid ?? '',
-                          channelName: channelName,
-                        ),
-                      );
-                    },
-                    icon: const Icon(Icons.delete, color: f63115)),
-              ],
-            ),
+                    showDialog(
+                      context: context,
+                      builder: (context) => _DeleteConversation(
+                        conversationId: conversationId,
+                        messageId: chat.uid ?? '',
+                        channelName: channelName,
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.delete, color: f63115)),
+            ],
           ),
         );
       }),
@@ -658,7 +639,7 @@ class _ChatWidget extends StatelessWidget {
                 ),
                 Container(
                   child: chat.messageFrom?.toLowerCase() != 'company'
-                      ? Container(
+                      ? SizedBox(
                           width: Get.width,
                           child: Wrap(
                               crossAxisAlignment: WrapCrossAlignment.center,
@@ -705,32 +686,30 @@ class _ChatWidget extends StatelessWidget {
                                 const SizedBox(
                                   width: 4,
                                 ),
-                                Container(
-                                  child: Text(
-                                    conversation.channel?.toLowerCase() ==
-                                            'facebook'
-                                        ? conversation
-                                                .facebookConnection?.pageName ??
-                                            ''
-                                        : conversation.channel?.toLowerCase() ==
-                                                'instagram'
-                                            ? conversation.instagramConnection
-                                                    ?.pageName ??
-                                                ''
-                                            : conversation.channel
-                                                        ?.toLowerCase() ==
-                                                    'twitter'
-                                                ? 'Twitter Id : ${conversation.twitterConnection?.id.toString() ?? ''}'
-                                                : '${conversation.contact?.firstName?.capitalize.toString() ?? ''} ${conversation.contact?.lastName?.capitalize.toString() ?? ''}',
-                                    style: satoshiRegular12.copyWith(
-                                        color: oneA1A1A.withOpacity(.68),
-                                        fontSize: 10),
-                                    textAlign: TextAlign.end,
-                                  ),
+                                Text(
+                                  conversation.channel?.toLowerCase() ==
+                                          'facebook'
+                                      ? conversation
+                                              .facebookConnection?.pageName ??
+                                          ''
+                                      : conversation.channel?.toLowerCase() ==
+                                              'instagram'
+                                          ? conversation.instagramConnection
+                                                  ?.pageName ??
+                                              ''
+                                          : conversation.channel
+                                                      ?.toLowerCase() ==
+                                                  'twitter'
+                                              ? 'Twitter Id : ${conversation.twitterConnection?.id.toString() ?? ''}'
+                                              : '${conversation.contact?.firstName?.capitalize.toString() ?? ''} ${conversation.contact?.lastName?.capitalize.toString() ?? ''}',
+                                  style: satoshiRegular12.copyWith(
+                                      color: oneA1A1A.withOpacity(.68),
+                                      fontSize: 10),
+                                  textAlign: TextAlign.end,
                                 ),
                               ]),
                         )
-                      : Container(
+                      : SizedBox(
                           width: Get.width,
                           child: Wrap(
                             runAlignment: WrapAlignment.end,
@@ -1067,13 +1046,6 @@ class _MessageTypeState extends State<_MessageType> {
     linkifyText();
   }
 
-  // @override
-  // void didChangeDependencies() async {
-  //   // _controller.initialize();
-  //   await linkifyText();
-  //   super.didChangeDependencies();
-  // }
-
   @override
   void dispose() {
     super.dispose();
@@ -1081,7 +1053,7 @@ class _MessageTypeState extends State<_MessageType> {
   }
 
   Future<void> linkifyText() async {
-    if (widget.chat.messageType == "text") {
+    if (widget.chat.messageType == "text" && !kIsWeb) {
       entries = await NativeLinkify.linkify(widget.chat.message.toString());
       if (mounted) {
         setState(() {});
@@ -1091,7 +1063,7 @@ class _MessageTypeState extends State<_MessageType> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.chat.messageType?.toLowerCase() == 'text') {
+    if (widget.chat.messageType?.toLowerCase() == 'text' && !kIsWeb) {
       return Container(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         child: Column(
@@ -1168,6 +1140,15 @@ class _MessageTypeState extends State<_MessageType> {
         // )
       );
     }
+    if (widget.chat.messageType?.toLowerCase() == 'text' && kIsWeb) {
+      return Container(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        child: Text(
+          widget.chat.message.toString(),
+          style: satoshiRegular14.copyWith(color: oneA1A1A),
+        ),
+      );
+    }
 
     if (widget.chat.isStory == true) {
       return Container(
@@ -1233,20 +1214,20 @@ class _MessageTypeState extends State<_MessageType> {
                   child: _controller.value.isInitialized
                       ? Stack(
                           children: [
-                            Container(
+                            SizedBox(
                               width: Get.width,
                               height: 150,
                               child: VideoPlayer(_controller),
                             ),
-                            Positioned(
+                            const Positioned(
                               top: 0,
                               right: 0,
                               bottom: 0,
                               left: 0,
-                              child: Container(
+                              child: SizedBox(
                                 width: 40,
                                 height: 40,
-                                child: const Icon(
+                                child: Icon(
                                   Icons.play_circle_outline,
                                   color: zero066FF,
                                   size: 40,
@@ -1255,10 +1236,10 @@ class _MessageTypeState extends State<_MessageType> {
                             ),
                           ],
                         )
-                      : Container(
+                      : const SizedBox(
                           width: 100,
                           height: 100,
-                          child: const Center(
+                          child: Center(
                             child: CircularProgressIndicator(),
                           ),
                         ),
@@ -1277,20 +1258,20 @@ class _MessageTypeState extends State<_MessageType> {
                       child: _controller.value.isInitialized
                           ? Stack(
                               children: [
-                                Container(
+                                SizedBox(
                                   width: Get.width,
                                   height: 150,
                                   child: VideoPlayer(_controller),
                                 ),
-                                Positioned(
+                                const Positioned(
                                   top: 0,
                                   right: 0,
                                   bottom: 0,
                                   left: 0,
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 40,
                                     height: 40,
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.play_circle_outline,
                                       color: zero066FF,
                                       size: 40,
@@ -1299,10 +1280,10 @@ class _MessageTypeState extends State<_MessageType> {
                                 ),
                               ],
                             )
-                          : Container(
+                          : const SizedBox(
                               width: 100,
                               height: 100,
-                              child: const Center(
+                              child: Center(
                                 child: CircularProgressIndicator(),
                               ),
                             ),
@@ -1358,8 +1339,9 @@ class _MessageTypeState extends State<_MessageType> {
                                 ],
                               ))
                           : widget.chat.messageType?.toLowerCase() == 'image' &&
-                                  widget.chat.status == 'offline'
-                              ? Container(
+                                  widget.chat.status == 'offline' &&
+                                  !kIsWeb
+                              ? SizedBox(
                                   height: 150,
                                   width: 150,
                                   child: Stack(
@@ -1388,41 +1370,79 @@ class _MessageTypeState extends State<_MessageType> {
                                     ],
                                   ),
                                 )
-                              : GestureDetector(
-                                  // onTap: () => Get.to(() => ViewAttachmentPage(
-                                  //     message: widget.chat,
-                                  //     messageType: MessageType.image,
-                                  //     conversationId:
-                                  //         widget.chat.id.toString())),
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ViewAttachmentPage(
-                                                message: widget.chat,
-                                                messageType: MessageType.image,
-                                                conversationId:
-                                                    widget.chat.id.toString(),
-                                              ))),
-                                  child: CachedNetworkImage(
-                                    height: 150,
-                                    width: 150,
-                                    imageUrl: widget.chat.message ?? '',
-                                    placeholder: (context, url) => const Center(
-                                      child: Icon(
-                                        Icons.image,
-                                        color: ffffff,
+                              : widget.chat.messageType?.toLowerCase() ==
+                                          'image' &&
+                                      widget.chat.status == 'offline' &&
+                                      kIsWeb
+                                  ? SizedBox(
+                                      height: 150,
+                                      width: 150,
+                                      child: Stack(
+                                        children: [
+                                          Image.network(
+                                            File(widget.chat.message ?? '')
+                                                .path,
+                                          ),
+                                          _conversationsController
+                                                  .isLoading.value
+                                              ? Positioned(
+                                                  top: 0,
+                                                  right: 0,
+                                                  bottom: 0,
+                                                  left: 0,
+                                                  child: Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      valueColor:
+                                                          const AlwaysStoppedAnimation<
+                                                              Color>(six66666),
+                                                      color: six66666
+                                                          .withOpacity(.5),
+                                                    ),
+                                                  ),
+                                                )
+                                              : const SizedBox()
+                                        ],
                                       ),
-                                    ),
-                                    errorWidget: (context, url, error) =>
-                                        const Center(
-                                      child: Icon(
-                                        Icons.broken_image_rounded,
-                                        color: ffffff,
+                                    )
+                                  : GestureDetector(
+                                      // onTap: () => Get.to(() => ViewAttachmentPage(
+                                      //     message: widget.chat,
+                                      //     messageType: MessageType.image,
+                                      //     conversationId:
+                                      //         widget.chat.id.toString())),
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ViewAttachmentPage(
+                                                    message: widget.chat,
+                                                    messageType:
+                                                        MessageType.image,
+                                                    conversationId: widget
+                                                        .chat.id
+                                                        .toString(),
+                                                  ))),
+                                      child: CachedNetworkImage(
+                                        height: 150,
+                                        width: 150,
+                                        imageUrl: widget.chat.message ?? '',
+                                        placeholder: (context, url) =>
+                                            const Center(
+                                          child: Icon(
+                                            Icons.image,
+                                            color: ffffff,
+                                          ),
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            const Center(
+                                          child: Icon(
+                                            Icons.broken_image_rounded,
+                                            color: ffffff,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                );
+                                    );
     }
   }
 }

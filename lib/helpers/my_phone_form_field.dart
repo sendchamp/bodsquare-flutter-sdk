@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_dynamic_calls,
 
-import 'dart:developer';
-
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +34,7 @@ class _MyPhoneFieldState extends State<MyPhoneField> {
 
   CountryWithPhoneCode get _countryWithPhoneCode {
     return CountryWithPhoneCode.getCountryDataByPhone(phoneNumber) ??
-        CountryWithPhoneCode.us();
+        const CountryWithPhoneCode.us();
   }
 
   @override
@@ -83,14 +81,14 @@ class _MyPhoneFieldState extends State<MyPhoneField> {
                       ? widget.countryCodeController?.text
                       : 'NG',
                   textStyle: satoshiMedium14.copyWith(color: oneA1A1A),
-                  favorite: [
+                  favorite: const [
                     'NG',
                     'GH',
                     'US',
                     'UG',
                     'RW',
                   ],
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
 
                   // flagWidth: 24,
                   dialogTextStyle: satoshiMedium14,

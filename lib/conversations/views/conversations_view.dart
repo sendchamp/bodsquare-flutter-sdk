@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:bodsquare_sdk/conversations/controllers/conversations_controller.dart';
 import 'package:bodsquare_sdk/conversations/views/active_conversations.dart';
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
@@ -52,6 +54,7 @@ class _ConversationsViewState extends State<ConversationsView>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return GetBuilder<ConversationsController>(
       init: ConversationsController(
           loadingService: Get.put(LoadingService(context: context)))
@@ -236,7 +239,7 @@ class _ConversationsViewState extends State<ConversationsView>
               //   ),
               // ),
 
-              Expanded(
+              const Expanded(
                 // child: TabBarView(
                 //   controller: _tabController,
                 //   children: [

@@ -1,7 +1,6 @@
 import 'package:bodsquare_sdk/conversations/controllers/conversations_controller.dart';
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 enum ConversationType { open, pending, closed }
 

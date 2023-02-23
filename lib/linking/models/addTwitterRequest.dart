@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
@@ -8,7 +10,7 @@ class AddTwitterRequest extends Equatable {
 
   final String oauth_verifier;
   final String oauth_token;
-  AddTwitterRequest({
+  const AddTwitterRequest({
     required this.platform,
     required this.token,
     required this.oauth_verifier,

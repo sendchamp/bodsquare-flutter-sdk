@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
 
 import 'package:bodsquare_sdk/conversations/controllers/conversations_controller.dart';
 import 'package:bodsquare_sdk/conversations/models/conversation_model/conversation_message.dart';
@@ -11,16 +9,17 @@ import 'package:bodsquare_sdk/helpers/storage_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 // import 'package:web_socket_channel/io.dart';
 
 import 'websocket_new_message/websocket_new_message.dart';
 import 'websocket_updated_conversation/websocket_updated_conversation.dart';
 
 class WebSocketService extends GetxService {
-  IOWebSocketChannel? channel;
+  WebSocketChannel? channel;
   RxBool isConnected = RxBool(false);
   ConversationMessage? convoMessage;
-  StorageService _storageService = StorageService();
+  final StorageService _storageService = StorageService();
 
   final ConversationsController _conversationsController = Get.put(
       ConversationsController(
@@ -39,81 +38,90 @@ class WebSocketService extends GetxService {
 
     // //log('businessUId: ${kReleaseMode ? "wss://prod-api.bodsquare.com/$businessUId" : "wss://staging-api.bodsquare.com/$businessUId"}');
 
-    int? counter;
+    // int? counter;
+    // List<InternetAddress> result = [];
 
-    final result = await InternetAddress.lookup('google.com');
-    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-      //log("Internet Active");
+    // result = await InternetAddress.lookup('example.com');
 
-      final String businessUid = await _storageService.getString('companyUid');
-      final bool env = await _storageService.getBool('env');
+    // if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+    // log("Internet Active");
 
-      try {
-        //log('businessUid: $businessUid');
-        await Future.delayed(const Duration(seconds: 10));
-        channel = IOWebSocketChannel.connect(
-          // "ws://178.62.97.4:3004",
-          kReleaseMode || env
-              ? "wss://prod-api.bodsquare.com/$businessUid"
-              : "wss://staging-api.bodsquare.com/$businessUid",
+    final String businessUid = await _storageService.getString('companyUid');
+    final bool env = await _storageService.getBool('env');
 
-          pingInterval: const Duration(seconds: 10),
-        ); //channel IP : Port
-        isConnected.value = true;
-        channel?.stream.listen(
-          (message) async {
-            //log(message);
-            //log('counter: ${counter ?? 0 + 1}');
+    try {
+      //log('businessUid: $businessUid');
+      await Future.delayed(const Duration(seconds: 10));
+      channel = kIsWeb
+          ? WebSocketChannel.connect(
+              kReleaseMode || env
+                  ? Uri.parse("wss://prod-api.bodsquare.com/$businessUid")
+                  : Uri.parse("wss://staging-api.bodsquare.com/$businessUid"),
+            )
+          : IOWebSocketChannel.connect(
+              // "ws://178.62.97.4:3004",
+              kReleaseMode || env
+                  ? "wss://prod-api.bodsquare.com/$businessUid"
+                  : "wss://staging-api.bodsquare.com/$businessUid",
 
-            var fina = jsonDecode(message);
-            final name = Socketso.fromJson(fina);
+              pingInterval: const Duration(seconds: 10),
+            ); //channel IP : Port
+      isConnected.value = true;
+      channel?.stream.listen(
+        (message) async {
+          // log(message);
+          // log('counter: ${counter ?? 0 + 1}');
 
-            if (name.socketName == 'newMessage' &&
-                _conversationsController.singleConversation.value &&
-                name.contactUid ==
-                    _conversationsController.currentContactId.value) {
-              final value = WebsocketNewMessage.fromJson(fina);
-              final json = jsonEncode(value.data);
-              convoMessage = ConversationMessage.fromJson(jsonDecode(json));
+          var fina = jsonDecode(message);
+          final name = Socketso.fromJson(fina);
 
-              _conversationsController.updateOfflineMessagesFromSocket(
-                  _conversationsController.currentConversationId.toString(),
-                  convoMessage ?? const ConversationMessage());
+          if (name.socketName == 'newMessage' &&
+              _conversationsController.singleConversation.value &&
+              name.contactUid ==
+                  _conversationsController.currentContactId.value) {
+            final value = WebsocketNewMessage.fromJson(fina);
+            final json = jsonEncode(value.data);
+            convoMessage = ConversationMessage.fromJson(jsonDecode(json));
 
-              //log('inside web socket');
-              // _conversationsController.getSingleConversation(
-              //     _conversationsController.currentConversationId.value);
-            } else if (name.socketName == 'updatedConversation') {
-              final value = WebsocketUpdatedConversation.fromJson(fina);
-              final formattedValue = jsonEncode(value.data);
+            _conversationsController.updateOfflineMessagesFromSocket(
+                _conversationsController.currentConversationId.toString(),
+                convoMessage ?? const ConversationMessage());
 
-              GetAllConversationsData conversations =
-                  GetAllConversationsData.fromJson(jsonDecode(formattedValue));
-              _conversationsController.getOfflineConversation(conversations);
+            //log('inside web socket');
+            // _conversationsController.getSingleConversation(
+            //     _conversationsController.currentConversationId.value);
+          } else if (name.socketName == 'updatedConversation') {
+            final value = WebsocketUpdatedConversation.fromJson(fina);
+            final formattedValue = jsonEncode(value.data);
 
-              _conversationsController.update();
-            }
-          },
-          onDone: () {
-            //log("Web socket is closed");
-            isConnected.value = false;
-            channelconnect();
-          },
-          onError: (error) {
-            //log(error.toString());
-            isConnected.value = false;
-            channelconnect();
-          },
-        );
-      } catch (_) {
-        //log("error on connecting to websocket.");
-        isConnected.value = false;
-        channelconnect();
-      }
-    } else {
-      //log("No network coverage");
+            GetAllConversationsData conversations =
+                GetAllConversationsData.fromJson(jsonDecode(formattedValue));
+            _conversationsController.getOfflineConversation(conversations);
+
+            _conversationsController.update();
+          }
+        },
+        onDone: () {
+          //log("Web socket is closed");
+          isConnected.value = false;
+          channelconnect();
+        },
+        onError: (error) {
+          //log(error.toString());
+          isConnected.value = false;
+          channelconnect();
+        },
+      );
+    } catch (_) {
+      //log("error on connecting to websocket.");
+      isConnected.value = false;
+      channelconnect();
     }
   }
+  // else {
+  //   //log("No network coverage");
+  // }
+  // }
 
   @override
   void onClose() {

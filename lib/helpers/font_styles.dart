@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // final _fallBacks = <String>[R.fontFamily.roboto];
 
-final satoshiBold24 = const TextStyle(
+const satoshiBold24 = TextStyle(
   //fontFamily: R.fontFamily.satoshi,
   height: 1.33,
   fontSize: 24,
@@ -10,7 +10,7 @@ final satoshiBold24 = const TextStyle(
   //fontFamilyFallback: _fallBacks,
 );
 
-final satoshiBold20 = const TextStyle(
+const satoshiBold20 = TextStyle(
   //fontFamily: R.fontFamily.satoshi,
   height: 1.2,
   fontSize: 20,
@@ -18,14 +18,14 @@ final satoshiBold20 = const TextStyle(
   //fontFamilyFallback: _fallBacks,
 );
 
-final satoshiBold16 = const TextStyle(
+const satoshiBold16 = TextStyle(
   //fontFamily: R.fontFamily.satoshi,
   height: 1.2,
   fontSize: 16,
   fontWeight: FontWeight.w700,
   //fontFamilyFallback: _fallBacks,
 );
-final satoshiMedium16 = const TextStyle(
+const satoshiMedium16 = TextStyle(
   //fontFamily: R.fontFamily.satoshi,
   height: 1.5,
   fontSize: 16,
@@ -33,7 +33,7 @@ final satoshiMedium16 = const TextStyle(
   //fontFamilyFallback: _fallBacks,
 );
 
-final satoshiMedium14 = const TextStyle(
+const satoshiMedium14 = TextStyle(
   //fontFamily: R.fontFamily.satoshi,
   height: 1.35,
   fontSize: 14,
@@ -41,7 +41,7 @@ final satoshiMedium14 = const TextStyle(
   //fontFamilyFallback: _fallBacks,
 );
 
-final satoshiRegular14 = const TextStyle(
+const satoshiRegular14 = TextStyle(
   //fontFamily: R.fontFamily.satoshi,
   height: 1.35,
   fontSize: 14,
@@ -49,7 +49,7 @@ final satoshiRegular14 = const TextStyle(
   //fontFamilyFallback: _fallBacks,
 );
 
-final satoshiRegular12 = const TextStyle(
+const satoshiRegular12 = TextStyle(
   //fontFamily: R.fontFamily.satoshi,
   height: 1.3,
   fontSize: 12,
@@ -76,27 +76,27 @@ final borderRadius16 = BorderRadius.circular(16);
 final borderRadius22 = BorderRadius.circular(22);
 final borderRadius28 = BorderRadius.circular(28);
 
-final borderRadiusTopLR32 = BorderRadius.only(
+const borderRadiusTopLR32 = BorderRadius.only(
   topLeft: Radius.circular(32),
   topRight: Radius.circular(32),
 );
 
-final borderRadiusTopLR24 = BorderRadius.only(
+const borderRadiusTopLR24 = BorderRadius.only(
   topLeft: Radius.circular(24),
   topRight: Radius.circular(24),
 );
 
-final borderRadiusTopRBottomR8 = BorderRadius.only(
+const borderRadiusTopRBottomR8 = BorderRadius.only(
   bottomRight: Radius.circular(8),
   topRight: Radius.circular(8),
 );
 
 final primaryButtonStyle = ElevatedButton.styleFrom(
+  foregroundColor: ffffff,
+  backgroundColor: zero066FF,
   padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-  primary: zero066FF,
-  onPrimary: ffffff,
-  // onSurface: Colors.red,
-  onSurface: zero066FF.withOpacity(0.48),
+  disabledForegroundColor: zero066FF.withOpacity(0.48).withOpacity(0.38),
+  disabledBackgroundColor: zero066FF.withOpacity(0.48).withOpacity(0.12),
   // shadowColor: mercury,
   textStyle: satoshiMedium16,
   elevation: 1,

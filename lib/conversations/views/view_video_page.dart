@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bodsquare_sdk/conversations/controllers/conversations_controller.dart';
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
@@ -24,7 +25,9 @@ class ViewVideoPagePageState extends State<ViewVideoPagePage> {
   void initState() {
     super.initState();
     if (widget.source != null && widget.source != '') {
-      _controller = VideoPlayerController.file(File(widget.source ?? ''));
+      _controller = kIsWeb
+          ? VideoPlayerController.network(File(widget.source ?? '').path)
+          : VideoPlayerController.file(File(widget.source ?? ''));
     } else {
       _controller = VideoPlayerController.network(widget.videoUrl);
     }
@@ -57,8 +60,9 @@ class ViewVideoPagePageState extends State<ViewVideoPagePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Container(
+              SizedBox(
                 // padding: const EdgeInsets.all(20),
+                width: kIsWeb ? 500 : double.infinity,
                 child: AspectRatio(
                   aspectRatio: _controller.value.aspectRatio,
                   child: Stack(
@@ -160,15 +164,12 @@ class _ControlsOverlay extends StatelessWidget {
           reverseDuration: const Duration(milliseconds: 200),
           child: controller.value.isPlaying
               ? const SizedBox.shrink()
-              : Container(
-                  // color: Colors.black26,
-                  child: const Center(
-                    child: Icon(
-                      Icons.play_arrow,
-                      color: zero066FF,
-                      size: 100.0,
-                      semanticLabel: 'Play',
-                    ),
+              : const Center(
+                  child: Icon(
+                    Icons.play_arrow,
+                    color: zero066FF,
+                    size: 100.0,
+                    semanticLabel: 'Play',
                   ),
                 ),
         ),

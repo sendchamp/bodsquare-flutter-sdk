@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bodsquare_sdk/conversations/controllers/conversations_controller.dart';
 import 'package:bodsquare_sdk/conversations/widgets/delete_conversation_warning.dart';
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
@@ -21,7 +19,7 @@ class CloseOrDeleteChatBottomsheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.transparent, borderRadius: borderRadiusTopLR32),
       child: Column(
         mainAxisSize: MainAxisSize.min,

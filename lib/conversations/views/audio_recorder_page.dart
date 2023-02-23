@@ -1,5 +1,6 @@
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, unused_field, unused_local_variable
+
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bodsquare_sdk/conversations/views/audio_player_preview.dart';
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
@@ -7,7 +8,6 @@ import 'package:bodsquare_sdk/r.g.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:record/record.dart';
 // import 'package:permission_handler/permission_handler.dart'
 
@@ -121,21 +121,21 @@ class _AudioRecorderState extends State<AudioRecorder> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.black87, borderRadius: borderRadiusTopLR24),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         // mainAxisAlignment: MainAxisAlignment.center,
 
         children: [
-          SizedBox(height: 18),
+          const SizedBox(height: 18),
           Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             TextButton(
                 onPressed: () => Navigator.pop(context),
                 style: TextButton.styleFrom(
                   minimumSize: Size.zero,
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   // tapTargetSize: MaterialTapTargetSize.shrinkWrap
                 ),
                 child: SvgPicture.asset(
@@ -155,7 +155,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
             ],
           ),
 
-          SizedBox(height: 100),
+          const SizedBox(height: 100),
         ],
       ),
     );
@@ -241,7 +241,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
   String _formatNumber(int number) {
     String numberStr = number.toString();
     if (number < 10) {
-      numberStr = '0' + numberStr;
+      numberStr = '0$numberStr';
     }
 
     return numberStr;

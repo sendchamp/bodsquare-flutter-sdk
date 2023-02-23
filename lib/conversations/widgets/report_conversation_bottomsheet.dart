@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:bodsquare_sdk/conversations/controllers/conversations_controller.dart';
 import 'package:bodsquare_sdk/conversations/models/get_all_conversations/contact.dart';
 import 'package:bodsquare_sdk/conversations/widgets/report_conversation_detail_bottomsheet.dart';
@@ -20,8 +19,8 @@ class ReportConversationBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 24),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      decoration: const BoxDecoration(
           color: Colors.transparent, borderRadius: borderRadiusTopLR32),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -40,7 +39,6 @@ class ReportConversationBottomSheet extends StatelessWidget {
                         onPressed: () async {
                           Navigator.pop(context);
 
-                          // TODO : Add to list bottomsheet
                           // Get.bottomSheet(
                           //     AddToListBottomsheet(
                           //       item: ContactResponseData(
@@ -64,7 +62,7 @@ class ReportConversationBottomSheet extends StatelessWidget {
                           style: satoshiMedium14.copyWith(color: oneA1A1A),
                         )),
                   ),
-                  Divider(
+                  const Divider(
                     color: f8F8F8,
                     thickness: 2,
                   ),
@@ -92,7 +90,7 @@ class ReportConversationBottomSheet extends StatelessWidget {
                   ),
                 ],
               )),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Container(
@@ -112,7 +110,7 @@ class ReportConversationBottomSheet extends StatelessWidget {
                   style: satoshiMedium14.copyWith(color: f63115),
                 )),
           ),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
         ],

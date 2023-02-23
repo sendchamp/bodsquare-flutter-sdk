@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bodsquare_sdk/conversations/controllers/conversations_controller.dart';
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
 import 'package:bodsquare_sdk/helpers/loading_service.dart';
@@ -19,15 +17,15 @@ class ReportConversationDetailBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     // log(conversationId + 'detail');
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       // height: 375,
       decoration:
-          BoxDecoration(color: ffffff, borderRadius: borderRadiusTopLR32),
+          const BoxDecoration(color: ffffff, borderRadius: borderRadiusTopLR32),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
           Container(
@@ -36,22 +34,22 @@ class ReportConversationDetailBottomSheet extends StatelessWidget {
             decoration:
                 BoxDecoration(color: d8D8D8, borderRadius: borderRadius3),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Text(
             'Report Conversation',
             style: satoshiBold16.copyWith(color: oneA1A1A),
           ),
-          SizedBox(
+          const SizedBox(
             height: 43,
           ),
           _ReportConversationTextBox(),
-          Flexible(
+          const Flexible(
               child: SizedBox(
             height: 257,
           )),
-          Divider(
+          const Divider(
             color: f8F8F8,
             thickness: 2,
           ),
@@ -75,14 +73,14 @@ class ReportConversationDetailBottomSheet extends StatelessWidget {
                 'Submit',
                 style: satoshiMedium14.copyWith(color: zero066FF),
               )),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
-          Divider(
+          const Divider(
             color: f8F8F8,
             thickness: 2,
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           TextButton(
@@ -93,7 +91,7 @@ class ReportConversationDetailBottomSheet extends StatelessWidget {
                 'Cancel',
                 style: satoshiMedium14.copyWith(color: oneA1A1A),
               )),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
         ],
@@ -114,7 +112,7 @@ class _ReportConversationTextBox extends StatelessWidget {
           'Kindly enter the details  of your report',
           style: satoshiMedium14.copyWith(color: oneA1A1A),
         ),
-        SizedBox(
+        const SizedBox(
           height: 4,
         ),
         TextFormField(

@@ -4,6 +4,7 @@ import 'package:bodsquare_sdk/conversations/controllers/conversations_controller
 import 'package:bodsquare_sdk/conversations/views/file_preview_page.dart';
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
 import 'package:bodsquare_sdk/r.g.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -37,7 +38,9 @@ class VideoPreviewPageState extends State<VideoPreviewPage> {
         // VideoPlayerController.network(
         //   'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
         // );
-        VideoPlayerController.file(widget.file);
+        kIsWeb
+            ? VideoPlayerController.network(widget.file.path)
+            : VideoPlayerController.file(widget.file);
 
     _controller.addListener(() {
       setState(() {});
@@ -55,19 +58,20 @@ class VideoPreviewPageState extends State<VideoPreviewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
-      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+    // return Scaffold(
+    //     body:
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
       color: Colors.black87,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(children: [
             TextButton(
-                onPressed: Get.back,
+                onPressed: () => Navigator.pop(context),
                 style: TextButton.styleFrom(
                   minimumSize: Size.zero,
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   // tapTargetSize: MaterialTapTargetSize.shrinkWrap
                 ),
                 child: SvgPicture.asset(
@@ -75,8 +79,9 @@ class VideoPreviewPageState extends State<VideoPreviewPage> {
                   package: 'bodsquare_sdk',
                 )),
           ]),
-          Container(
+          SizedBox(
             // padding: const EdgeInsets.all(20),
+            width: kIsWeb ? 500 : double.infinity,
             child: AspectRatio(
               aspectRatio: _controller.value.aspectRatio,
               child: Stack(
@@ -87,7 +92,7 @@ class VideoPreviewPageState extends State<VideoPreviewPage> {
                   VideoProgressIndicator(
                     _controller,
                     allowScrubbing: true,
-                    colors: VideoProgressColors(
+                    colors: const VideoProgressColors(
                       playedColor: zero066FF,
                       // bufferedColor: Colors.blue,
                       // backgroundColor: Colors.grey,
@@ -97,59 +102,56 @@ class VideoPreviewPageState extends State<VideoPreviewPage> {
               ),
             ),
           ),
-          Container(
-            // height: 60,
-
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    constraints: BoxConstraints(
-                      minHeight: 40,
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: f6F6F8,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Center(
-                      child: TextField(
-                        controller:
-                            conversationsController.textMessageController,
-                        minLines: 1,
-                        maxLines: 4,
-                        decoration: InputDecoration.collapsed(
-                            hintText: 'Attach a message'),
-                      ),
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  constraints: const BoxConstraints(
+                    minHeight: 40,
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: f6F6F8,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Center(
+                    child: TextField(
+                      controller: conversationsController.textMessageController,
+                      minLines: 1,
+                      maxLines: 4,
+                      decoration: const InputDecoration.collapsed(
+                          hintText: 'Attach a message'),
                     ),
                   ),
                 ),
-                TextButton(
-                    onPressed: () {
-                      conversationsController.sendMultiFileMessage(
-                          id: widget.conversationId,
-                          messageType: widget.messageType == MessageType.video
-                              ? 'video'
-                              : '',
-                          files: [widget.file],
-                          channelName: widget.channelName);
-                      Navigator.pop(context);
-                    },
-                    style: TextButton.styleFrom(
-                      minimumSize: Size.zero,
-                      padding: EdgeInsets.all(8),
-                      // tapTargetSize: MaterialTapTargetSize.shrinkWrap
-                    ),
-                    child: SvgPicture.asset(
-                      R.svg.asset.send_message_icon.assetName,
-                      package: 'bodsquare_sdk',
-                    )),
-              ],
-            ),
+              ),
+              TextButton(
+                  onPressed: () {
+                    conversationsController.sendMultiFileMessage(
+                        id: widget.conversationId,
+                        messageType: widget.messageType == MessageType.video
+                            ? 'video'
+                            : '',
+                        files: [widget.file],
+                        channelName: widget.channelName);
+                    Navigator.pop(context);
+                  },
+                  style: TextButton.styleFrom(
+                    minimumSize: Size.zero,
+                    padding: const EdgeInsets.all(8),
+                    // tapTargetSize: MaterialTapTargetSize.shrinkWrap
+                  ),
+                  child: SvgPicture.asset(
+                    R.svg.asset.send_message_icon.assetName,
+                    package: 'bodsquare_sdk',
+                  )),
+            ],
           ),
         ],
       ),
-    ));
+    );
+    // ));
   }
 }
 
@@ -186,15 +188,12 @@ class _ControlsOverlay extends StatelessWidget {
           reverseDuration: const Duration(milliseconds: 200),
           child: controller.value.isPlaying
               ? const SizedBox.shrink()
-              : Container(
-                  // color: Colors.black26,
-                  child: const Center(
-                    child: Icon(
-                      Icons.play_arrow,
-                      color: zero066FF,
-                      size: 100.0,
-                      semanticLabel: 'Play',
-                    ),
+              : const Center(
+                  child: Icon(
+                    Icons.play_arrow,
+                    color: zero066FF,
+                    size: 100.0,
+                    semanticLabel: 'Play',
                   ),
                 ),
         ),

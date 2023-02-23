@@ -6,5 +6,5 @@ class ConversationsService extends GetxService {
   RxList<GetAllConversationsData> allConversationsList =
       RxList<GetAllConversationsData>();
   Rx<ConversationModel> conversation =
-      Rx<ConversationModel>(ConversationModel());
+      Rx<ConversationModel>(const ConversationModel());
 }

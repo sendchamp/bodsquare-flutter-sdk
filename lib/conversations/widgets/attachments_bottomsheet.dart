@@ -1,11 +1,17 @@
+// ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison
+
+import 'dart:developer';
+
 import 'package:bodsquare_sdk/conversations/controllers/conversations_controller.dart';
 import 'package:bodsquare_sdk/conversations/views/file_preview_page.dart';
 import 'package:bodsquare_sdk/conversations/views/video_preview_page.dart';
 import 'package:bodsquare_sdk/helpers/file_picker_service.dart';
 import 'package:bodsquare_sdk/helpers/font_styles.dart';
 import 'package:bodsquare_sdk/helpers/loading_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:universal_io/io.dart';
 
 class AttachmentsBottomSheet extends StatelessWidget {
   AttachmentsBottomSheet({
@@ -20,11 +26,14 @@ class AttachmentsBottomSheet extends StatelessWidget {
   final FilePickerService filePickerService = Get.put(FilePickerService());
   final LoadingService loadingService = Get.find();
 
+  Future<File> createFileFromBytes(Uint8List bytes) async =>
+      File.fromRawPath(bytes);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.transparent, borderRadius: borderRadiusTopLR32),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -87,7 +96,7 @@ class AttachmentsBottomSheet extends StatelessWidget {
                         BoxConstraints(minHeight: 61, minWidth: Get.width),
                     child: TextButton(
                         onPressed: () async {
-                          Navigator.pop(context);
+                          // Navigator.pop(context);
 
                           final file =
                               await filePickerService.pickImageFromGallery();
@@ -98,17 +107,34 @@ class AttachmentsBottomSheet extends StatelessWidget {
                             //       conversationId: conversationId,
                             //       channelName: channelName,
                             //     ));
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
+
+                            await showModalBottomSheet(
+                                context: context,
+                                isDismissible: true,
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
                                 builder: (context) => FilePreviewPage(
-                                  files: file,
-                                  messageType: MessageType.image,
-                                  conversationId: conversationId,
-                                  channelName: channelName,
-                                ),
-                              ),
-                            );
+                                    files: file,
+                                    messageType: MessageType.image,
+                                    conversationId: conversationId,
+                                    channelName: channelName));
+                            Navigator.pop(context);
+
+                            // Navigator.push(
+                            //   context,
+                            //   //                            MaterialPageRoute<void>(
+                            //   //   builder: (BuildContext context) => const MyPage(),
+                            //   // ),
+                            //   MaterialPageRoute(
+                            //     builder: (BuildContext context) =>
+                            //         FilePreviewPage(
+                            //       files: file,
+                            //       messageType: MessageType.image,
+                            //       conversationId: conversationId,
+                            //       channelName: channelName,
+                            //     ),
+                            //   ),
+                            // );
                           } else {
                             loadingService.showError(
                               'Unable to pick image',
@@ -133,7 +159,7 @@ class AttachmentsBottomSheet extends StatelessWidget {
                         BoxConstraints(minHeight: 61, minWidth: Get.width),
                     child: TextButton(
                         onPressed: () async {
-                          Navigator.pop(context);
+                          // Navigator.pop(context);
 
                           final file =
                               await filePickerService.pickVideoFromGallery();
@@ -144,17 +170,29 @@ class AttachmentsBottomSheet extends StatelessWidget {
                             //       conversationId: conversationId,
                             //       channelName: channelName,
                             //     ));
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
+                            await showModalBottomSheet(
+                                context: context,
+                                isDismissible: true,
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
                                 builder: (context) => VideoPreviewPage(
-                                  file: file,
-                                  messageType: MessageType.video,
-                                  conversationId: conversationId,
-                                  channelName: channelName,
-                                ),
-                              ),
-                            );
+                                      file: file,
+                                      messageType: MessageType.video,
+                                      conversationId: conversationId,
+                                      channelName: channelName,
+                                    ));
+                            Navigator.pop(context);
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => VideoPreviewPage(
+                            //       file: file,
+                            //       messageType: MessageType.video,
+                            //       conversationId: conversationId,
+                            //       channelName: channelName,
+                            //     ),
+                            //   ),
+                            // );
                           } else {
                             loadingService.showError(
                               'Unable to pick video',
@@ -179,19 +217,43 @@ class AttachmentsBottomSheet extends StatelessWidget {
                         BoxConstraints(minHeight: 61, minWidth: Get.width),
                     child: TextButton(
                         onPressed: () async {
-                          Navigator.pop(context);
-
-                          final file = await filePickerService.selectFile();
-                          if (file != null) {
-                            controller.sendMultiFileMessage(
-                                id: conversationId,
-                                messageType: 'document',
-                                files: file,
-                                channelName: channelName);
+                          // Navigator.pop(context);
+                          if (kIsWeb) {
+                            final file =
+                                await filePickerService.selectWebFile();
+                            if (file != null) {
+                              log('file picked');
+                              final List<File?> files = [];
+                              for (var element in file) {
+                                if (element != null) {
+                                  final file =
+                                      await createFileFromBytes(element);
+                                  files.add(file);
+                                } else {
+                                  log('file is null');
+                                }
+                              }
+                              controller.sendMultiFileMessage(
+                                  id: conversationId,
+                                  files: files,
+                                  channelName: channelName,
+                                  messageType: 'document');
+                            } else {
+                              log('file not picked');
+                            }
                           } else {
-                            loadingService.showError(
-                              'Unable to get document',
-                            );
+                            final file = await filePickerService.selectFile();
+                            if (file != null) {
+                              controller.sendMultiFileMessage(
+                                  id: conversationId,
+                                  messageType: 'document',
+                                  files: file,
+                                  channelName: channelName);
+                            } else {
+                              loadingService.showError(
+                                'Unable to get document',
+                              );
+                            }
                           }
                         },
                         style: TextButton.styleFrom(

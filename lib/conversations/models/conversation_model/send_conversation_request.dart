@@ -8,7 +8,7 @@ class SendConversationRequest extends Equatable {
   final String? token;
   final String? message;
   final String? message_type;
-  SendConversationRequest({
+  const SendConversationRequest({
     this.token,
     this.message,
     this.message_type,
