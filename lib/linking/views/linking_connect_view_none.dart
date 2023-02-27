@@ -7,10 +7,8 @@ class LinkingConnectViewG extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Center(
-        child: Text('No platform selected'),
-      ),
+    return const Center(
+      child: Text('No platform selected'),
     );
   }
 }
