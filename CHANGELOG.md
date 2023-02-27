@@ -1,3 +1,6 @@
+## 0.0.4
+- Fix web error on web when for instagram guides.
+- Add more support for web.
 ## 0.0.3
 - Add support for web integration
 - Fix image and video upload bug.

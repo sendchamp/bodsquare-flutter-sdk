@@ -58,24 +58,9 @@ class _InstaStoryWebViewState extends State<InstaStoryWebView> {
                 onPageFinished: (url) {
                   setState(() {
                     loadingPercentage = 100;
-                    // log('message: current url: $url');
-
-                    // if (url.contains('&oauth_verifier=')) {
-                    //   var uri = Uri.parse(url);
-                    //   final TwitterData twitterData = TwitterData(
-                    //     oAuthVerifier: uri.queryParameters['oauth_verifier'],
-                    //     oAuthToken: uri.queryParameters['oauth_token'],
-                    //   );
-
-                    //   log(twitterData.toString());
-                    //   Get.back(result: twitterData);
-                    // }
                   });
                 },
-                onWebResourceError: (error) {
-                  // log(error.description);
-                  // log(error.errorType.toString());
-                },
+                onWebResourceError: (error) {},
               ),
               if (loadingPercentage < 100)
                 LinearProgressIndicator(
