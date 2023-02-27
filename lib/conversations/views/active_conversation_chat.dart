@@ -1182,11 +1182,13 @@ class _MessageTypeState extends State<_MessageType> {
                   onPressed: () {
                     // Get.to(() =>
                     //     InstaStoryWebView(url: widget.chat.storyUrl ?? ''));
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => InstaStoryWebView(
-                                url: widget.chat.storyUrl ?? '')));
+                    kIsWeb
+                        ? launchUrl(Uri.parse(widget.chat.storyUrl ?? ''))
+                        : Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => InstaStoryWebView(
+                                    url: widget.chat.storyUrl ?? '')));
                   },
                   child: Text('View Story',
                       style: satoshiRegular14.copyWith(color: zero066FF))),
