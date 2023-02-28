@@ -1,6 +1,6 @@
 name: bodsquare_sdk
 description: A wrapper around Bodsquare communication APIs. This includes APIs for communicating with customers via Whatsapp, Facebook, and Instagram.
-version: 0.0.4
+version: 0.0.5
 homepage: https://github.com/sendchamp/bodsquare-flutter-sdk
 environment:
   sdk: ">=2.18.1 <3.0.0"
@@ -13,7 +13,7 @@ dependencies:
   dio: "^4.0.6"
   elegant_notification: "^1.6.4"
   r_dart_library: "^0.4.1"
-  webview_flutter: "^3.0.4"
+  # webview_flutter: "^3.0.4"
   json_serializable: "^6.5.1"
   retrofit: "^3.3.1"
   json_annotation: "^4.1.0"

@@ -19,7 +19,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+// import 'package:webview_flutter/webview_flutter.dart';
 
 // import 'package:webview_flutt/er/webview_flutter.dart';
 
@@ -612,15 +612,15 @@ class InstagramInstructions extends StatelessWidget {
                               //     ? launchUrl(Uri.parse(
                               //         'https://guides.bodsquare.com/channels/instagram/convert-to-business-ig-page'))
                               //     :
-                              showModalBottomSheet(
-                                context: context,
-                                isDismissible: true,
-                                shape: bottomsheetRadius,
-                                builder: (context) => const _GuidesBottomSheet(
-                                    url:
-                                        'https://guides.bodsquare.com/channels/instagram/convert-to-business-ig-page'),
-                                isScrollControlled: true,
-                              );
+                              // showModalBottomSheet(
+                              //   context: context,
+                              //   isDismissible: true,
+                              //   shape: bottomsheetRadius,
+                              //   builder: (context) => const _GuidesBottomSheet(
+                              //       url:
+                              //           'https://guides.bodsquare.com/channels/instagram/convert-to-business-ig-page'),
+                              //   isScrollControlled: true,
+                              // );
                             },
                         )
                       ]),
@@ -670,15 +670,15 @@ class InstagramInstructions extends StatelessWidget {
                               //     ? launchUrl(Uri.parse(
                               //         'https://guides.bodsquare.com/channels/instagram/convert-to-business-ig-page'))
                               //     :
-                              showModalBottomSheet(
-                                context: context,
-                                isDismissible: true,
-                                shape: bottomsheetRadius,
-                                builder: (context) => const _GuidesBottomSheet(
-                                    url:
-                                        'https://guides.bodsquare.com/channels/instagram/allow-access-to-messages'),
-                                isScrollControlled: true,
-                              );
+                              // showModalBottomSheet(
+                              //   context: context,
+                              //   isDismissible: true,
+                              //   shape: bottomsheetRadius,
+                              //   builder: (context) => const _GuidesBottomSheet(
+                              //       url:
+                              //           'https://guides.bodsquare.com/channels/instagram/allow-access-to-messages'),
+                              //   isScrollControlled: true,
+                              // );
                             },
                         )
                       ]),
@@ -747,58 +747,58 @@ class InstagramInstructions extends StatelessWidget {
   }
 }
 
-class _GuidesBottomSheet extends StatefulWidget {
-  const _GuidesBottomSheet({
-    Key? key,
-    required this.url,
-  }) : super(key: key);
+// class _GuidesBottomSheet extends StatefulWidget {
+//   const _GuidesBottomSheet({
+//     Key? key,
+//     required this.url,
+//   }) : super(key: key);
 
-  final String? url;
+//   final String? url;
 
-  @override
-  State<_GuidesBottomSheet> createState() => _GuidesBottomSheetState();
-}
+//   @override
+//   State<_GuidesBottomSheet> createState() => _GuidesBottomSheetState();
+// }
 
-class _GuidesBottomSheetState extends State<_GuidesBottomSheet> {
-  @override
-  void initState() {
-    super.initState();
+// class _GuidesBottomSheetState extends State<_GuidesBottomSheet> {
+//   @override
+//   void initState() {
+//     super.initState();
 
-    // launchUrl(Uri.parse(url ?? ''));
-    // super.initState();
-  }
+//     // launchUrl(Uri.parse(url ?? ''));
+//     // super.initState();
+//   }
 
-  final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
-    Factory(() => EagerGestureRecognizer())
-  };
+//   final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers = {
+//     Factory(() => EagerGestureRecognizer())
+//   };
 
-  final UniqueKey _key = UniqueKey();
+//   final UniqueKey _key = UniqueKey();
 
-  @override
-  Widget build(BuildContext context) {
-    LinkingController controller = LinkingController(context: context);
+//   @override
+//   Widget build(BuildContext context) {
+//     LinkingController controller = LinkingController(context: context);
 
-    return Container(
-      height: MediaQuery.of(context).size.height * .80,
-      decoration: const BoxDecoration(
-          color: ffffff,
-          borderRadius:
-              // borderRadiusTopLR32
-              BorderRadius.only(
-                  topLeft: Radius.circular(24), topRight: Radius.circular(24))),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(24), topRight: Radius.circular(24)),
-        child: WebView(
-          key: _key,
-          gestureRecognizers: gestureRecognizers,
-          javascriptMode: JavascriptMode.unrestricted,
-          initialUrl: widget.url ?? '',
-        ),
-      ),
-    );
-  }
-}
+//     return Container(
+//       height: MediaQuery.of(context).size.height * .80,
+//       decoration: const BoxDecoration(
+//           color: ffffff,
+//           borderRadius:
+//               // borderRadiusTopLR32
+//               BorderRadius.only(
+//                   topLeft: Radius.circular(24), topRight: Radius.circular(24))),
+//       child: ClipRRect(
+//         borderRadius: const BorderRadius.only(
+//             topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+//         child: WebView(
+//           key: _key,
+//           gestureRecognizers: gestureRecognizers,
+//           javascriptMode: JavascriptMode.unrestricted,
+//           initialUrl: widget.url ?? '',
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 // import 'package:bodsquare_sdk/linking/models/channels_model.dart';
 // import 'package:flutter/material.dart';

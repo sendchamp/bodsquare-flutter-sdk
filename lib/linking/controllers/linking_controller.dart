@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bodsquare_sdk/helpers/get_social_account_data.dart';
 import 'package:bodsquare_sdk/helpers/loading_service.dart';
@@ -17,9 +18,9 @@ import 'package:bodsquare_sdk/linking/models/get_twitter_response.dart';
 
 import 'package:bodsquare_sdk/linking/models/login_user_request/login_user_request.dart';
 import 'package:bodsquare_sdk/linking/models/page_id_response.dart';
-import 'package:bodsquare_sdk/linking/models/twitter_data.dart';
+// import 'package:bodsquare_sdk/linking/models/twitter_data.dart';
 import 'package:bodsquare_sdk/linking/repository/linking_repository.dart';
-import 'package:bodsquare_sdk/linking/views/social_media_connect_webview_view.dart';
+// import 'package:bodsquare_sdk/linking/views/social_media_connect_webview_view.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,8 @@ class LinkingController extends GetxController {
 
   LinkingController({required this.context});
 
-  // Rx<NetworkConnectionStatus> loadingStatus = NetworkConnectionStatus.none.obs;
+  // Rx<NetworkConnectionStatus> loadingStatus =
+  // NetworkConnectionStatus.none.obs;
 
   final count = 0;
   final LinkingRepository _linkingRepository = LinkingRepository();
@@ -78,6 +80,7 @@ class LinkingController extends GetxController {
 
   // late StreamSubscription<String?> _subUniLinks;
 
+  ///Get initial links from the app(deep linking)
   Future<void> initUniLinks() async {
     if (!_initialURILinkHandled) {
       try {
@@ -109,6 +112,7 @@ class LinkingController extends GetxController {
     }
   }
 
+  ///handles incoming links from deep links after the initial link handling.
   Future<void> _incomingLinkHandler() async {
     // 1
     if (!kIsWeb) {
@@ -150,6 +154,7 @@ class LinkingController extends GetxController {
   List<PageIdResponse> _pageIdResponse = [];
   String? previousPageName;
 
+  ///Processes the parameters gotten from deep links
   Future<void> processLink(String? link) async {
     _pageIdResponse.clear();
 
@@ -213,6 +218,7 @@ class LinkingController extends GetxController {
     disposeSubUniLinks();
   }
 
+  ///disposes deeplink stream subscription after usage
   disposeSubUniLinks() async {
     initialLink = null;
 
@@ -226,7 +232,8 @@ class LinkingController extends GetxController {
   }
 
   /// Disconnect Social Media account
-
+  ///
+  /// Handles twitter account deletion from bodsquare.
   Future<void> deleteTwitter(String twitterUid) async {
     final DeleteSocialMediaResponse response;
     try {
@@ -246,6 +253,7 @@ class LinkingController extends GetxController {
     }
   }
 
+  /// Handles whatsapp account deletion from bodsquare.
   Future<void> deleteWhatsapp(String whatsappUid) async {
     final DeleteSocialMediaResponse response;
     try {
@@ -262,22 +270,26 @@ class LinkingController extends GetxController {
       if (e is DioError) {
         getConnectionUrlLoadingStatus.value = false;
         linkingError.value = "Error: Unable to remove Whatsapp account";
-        // _loadingService.showError("Error: Unable to remove Whatsapp account");
+        // _loadingService.showError("Error:
+        //Unable to remove Whatsapp account");
       } else {
         getConnectionUrlLoadingStatus.value = false;
         linkingError.value = "Error: Unable to remove Whatsapp account";
-        // _loadingService.showError("Error: Unable to remove Whatsapp account");
+        // _loadingService.showError("Error: Unable to remove
+        // Whatsapp account");
       }
     }
   }
 
+  /// Handles facebook account deletion from bodsquare.
   Future<void> deleteFacebook(String facebookUid) async {
     final DeleteSocialMediaResponse response;
     try {
       getConnectionUrlLoadingStatus.value = true;
       // _loadingService.show(status: 'Processing');
       // loadingStatus.value = NetworkConnectionStatus.loading;
-      //log('facebookUid: $facebookUid ${getConnectionUrlLoadingStatus.value}');
+      //log('facebookUid: $facebookUid ${getConnectionUrl
+      //LoadingStatus.value}');
       response = await _linkingRepository.deleteFacebookConnection(facebookUid);
       if (response.status == 'success') {
         await getSocialMediaAccounts();
@@ -294,16 +306,19 @@ class LinkingController extends GetxController {
         getConnectionUrlLoadingStatus.value = false;
         linkingError.value = 'Error: Unable to remove Facebook account';
         // loadingStatus.value = NetworkConnectionStatus.error;
-        // _loadingService.showError('Error: Unable to remove Facebook account');
+        // _loadingService.showError('Error: Unable
+        //to remove Facebook account');
       } else {
         getConnectionUrlLoadingStatus.value = false;
         // loadingStatus.value = NetworkConnectionStatus.error;
-        // _loadingService.showError("Error: Unable to remove Facebook account");
+        // _loadingService.showError("Error: Unable t
+        //o remove Facebook account");
         linkingError.value = "Error: Unable to remove Facebook account";
       }
     }
   }
 
+  /// Handles deleteInstagram deletion from bodsquare.
   Future<void> deleteInstagram(String instagramUid) async {
     final DeleteSocialMediaResponse response;
     try {
@@ -323,15 +338,18 @@ class LinkingController extends GetxController {
       if (e is DioError) {
         getConnectionUrlLoadingStatus.value = false;
         linkingError.value = 'Error: Unable to remove Instagram account';
-        // _loadingService.showError('Error: Unable to remove Instagram account');
+        // _loadingService.showError('Error: Unable t
+        //o remove Instagram account');
       } else {
         getConnectionUrlLoadingStatus.value = false;
         linkingError.value = "Error: Unable to remove Instagram account";
-        // _loadingService.showError("Error: Unable to remove Instagram account");
+        // _loadingService.showError("Error: Unable t
+        //o remove Instagram account");
       }
     }
   }
 
+  /// Gets twitter initial connection url before linking.
   Future<void> getTwitterConnectionUrl() async {
     _incomingLinkHandler();
     try {
@@ -339,23 +357,29 @@ class LinkingController extends GetxController {
       final response = await _linkingRepository.getTwitterConnectionUrl();
       if (response.status == 'success') {
         _loadingService.dismiss();
+
+        log('Twitter connection test');
+
+        ///Twitter connection is not active in the sdk
+        /// and webview flutter was removed hence this.
+        ///
         //log(response.data.toString());
 
-        final TwitterData? twitterData = await Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const SocialMediaConnectWebviewView(),
-                settings: RouteSettings(arguments: response.data)));
-        if (twitterData != null) {
-          //log('twitter data: ${twitterData.toString()}');
+        // final TwitterData? twitterData = await Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => const SocialMediaConnectWebviewView(),
+        //         settings: RouteSettings(arguments: response.data)));
+        // if (twitterData != null) {
+        //   //log('twitter data: ${twitterData.toString()}');
 
-          final AddTwitterChannelRequest addTwitterChannelRequest =
-              AddTwitterChannelRequest(
-                  authToken: twitterData.oAuthToken ?? '',
-                  authVerifier: twitterData.oAuthVerifier ?? '');
+        //   final AddTwitterChannelRequest addTwitterChannelRequest =
+        //       AddTwitterChannelRequest(
+        //           authToken: twitterData.oAuthToken ?? '',
+        //           authVerifier: twitterData.oAuthVerifier ?? '');
 
-          addTwitterAccount(addTwitterChannelRequest);
-        }
+        //   addTwitterAccount(addTwitterChannelRequest);
+        // }
       }
     } catch (e) {
       if (e is DioError) {
@@ -369,6 +393,7 @@ class LinkingController extends GetxController {
     }
   }
 
+  /// Gets facebook initial connection url before linking.
   Future<void> getFacebookConnectionUrl() async {
     // _incomingLinkHandler();
     getConnectionUrlLoadingStatus.value = true;
@@ -403,6 +428,7 @@ class LinkingController extends GetxController {
     }
   }
 
+  /// Gets instagram initial connection url before linking.
   Future<void> getInstagramConnectionUrl() async {
     try {
       getConnectionUrlLoadingStatus.value = true;
@@ -434,7 +460,10 @@ class LinkingController extends GetxController {
     }
   }
 
+  /// whatsapp connection link placeholder.
   RxString whatsappLink = ''.obs;
+
+  /// Gets twitter initial connection url before linking.
   Future<String> getWhatsappConnectionUrl() async {
     // final String businessUid = await _storageService.getString('companyUid');
     final String businessToken = await _storageService.getString('token');
@@ -486,6 +515,7 @@ class LinkingController extends GetxController {
     return whatsappLink.value;
   }
 
+  /// Handles completing whatsapp connection after scanning from another mobile device.
   Future<void> completeWhatsappConnection() async {
     try {
       final phone = countryCodeController.text +
@@ -527,6 +557,8 @@ class LinkingController extends GetxController {
     }
   }
 
+  ///Handles launching of urls to external applications(browsers)
+  /// for out of app activities
   Future<void> _loadFromUrl(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(
@@ -565,9 +597,8 @@ class LinkingController extends GetxController {
     }
   }
 
-  /// add facebook or instagram account after connecting with facebook or instagram API
-  ///
-
+  /// add facebook account after
+  ///connecting with facebook or instagram API
   Future<void> addFacebookAccount(AddFacebookOrInstagramRequest request,
       {bool isLast = false}) async {
     try {
@@ -610,6 +641,8 @@ class LinkingController extends GetxController {
     }
   }
 
+  /// add instagram account after
+  ///connecting with facebook or instagram API
   Future<void> addInstagramAccount(AddFacebookOrInstagramRequest request,
       {bool isLast = false}) async {
     try {
@@ -654,6 +687,7 @@ class LinkingController extends GetxController {
     }
   }
 
+  /// Handles user login into the sdk
   Future<void> loginUser(
       {required String username, required String email}) async {
     try {
@@ -707,7 +741,8 @@ class LinkingController extends GetxController {
 
       //log('API CALL : : : : : :${acc.toString()}');
 
-      //log('API CALL : : : : : :${GetSocialAccounts().getSocialAccountData.toString()}');
+      //log('API CALL : : : : : :
+      //${GetSocialAccounts().getSocialAccountData.toString()}');
 
       await _storageService.setString(
           'socialAccounts', jsonEncode(acc.toJson()));
@@ -723,6 +758,7 @@ class LinkingController extends GetxController {
 
 }
 
+/// Handles string extensions for this sdk
 extension StringCasingExtension on String {
   String toCapitalized() =>
       length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';

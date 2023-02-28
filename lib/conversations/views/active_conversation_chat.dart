@@ -11,7 +11,7 @@ import 'package:bodsquare_sdk/conversations/models/get_all_conversations/get_all
 import 'package:bodsquare_sdk/conversations/views/audio_player_view.dart';
 import 'package:bodsquare_sdk/conversations/views/audio_recorder_page.dart';
 import 'package:bodsquare_sdk/conversations/views/file_preview_page.dart';
-import 'package:bodsquare_sdk/conversations/views/insta_story.dart';
+// import 'package:bodsquare_sdk/conversations/views/insta_story.dart';
 import 'package:bodsquare_sdk/conversations/views/view_attachment_page.dart';
 import 'package:bodsquare_sdk/conversations/views/view_video_page.dart';
 import 'package:bodsquare_sdk/conversations/widgets/attachments_bottomsheet.dart';
@@ -1182,13 +1182,17 @@ class _MessageTypeState extends State<_MessageType> {
                   onPressed: () {
                     // Get.to(() =>
                     //     InstaStoryWebView(url: widget.chat.storyUrl ?? ''));
-                    kIsWeb
-                        ? launchUrl(Uri.parse(widget.chat.storyUrl ?? ''))
-                        : Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => InstaStoryWebView(
-                                    url: widget.chat.storyUrl ?? '')));
+                    // kIsWeb
+                    // ?
+                    /// this will launch the instastory in the browser.
+                    launchUrl(Uri.parse(widget.chat.storyUrl ?? ''));
+
+                    ///this was removed as a result of the removal of webview_flutter package.
+                    // : Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => InstaStoryWebView(
+                    //             url: widget.chat.storyUrl ?? '')));
                   },
                   child: Text('View Story',
                       style: satoshiRegular14.copyWith(color: zero066FF))),
