@@ -46,6 +46,7 @@ class _InitialLinkingViewState extends State<InitialLinkingView> {
 
   bool loader = true;
 
+  /// Gets social accounts.
   getSocialAccounts(LinkingController controller) async {
     await controller.loginUser(username: widget.userName, email: widget.email);
     await controller.getSocialMediaAccounts();

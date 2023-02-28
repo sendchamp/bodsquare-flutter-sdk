@@ -1,3 +1,5 @@
+## 0.0.5
+- Remove webview flow to show links in external browser.
 ## 0.0.4
 - Fix web error on web when for instagram guides.
 - Add more support for web.
