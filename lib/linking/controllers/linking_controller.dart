@@ -473,7 +473,7 @@ class LinkingController extends GetxController {
       getConnectionUrlLoadingStatus.value = true;
 
       final phones = countryCodeController.text +
-          phoneNumberController.text.replaceAll('-', '');
+          phoneNumberController.text.replaceAll('-', '').replaceAll(' ', '');
       final phone = phones.replaceAll('+', '');
 
       // _loadingService.show(status: 'Processing...');

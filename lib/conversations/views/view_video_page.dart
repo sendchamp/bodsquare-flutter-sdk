@@ -59,10 +59,14 @@ class ViewVideoPagePageState extends State<ViewVideoPagePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
                 // padding: const EdgeInsets.all(20),
                 width: kIsWeb ? 500 : double.infinity,
+                height: kIsWeb
+                    ? MediaQuery.of(context).size.height * .6
+                    : MediaQuery.of(context).size.height * .8,
                 child: AspectRatio(
                   aspectRatio: _controller.value.aspectRatio,
                   child: Stack(

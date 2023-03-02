@@ -116,13 +116,6 @@ class _MyPhoneFieldState extends State<MyPhoneField> {
                   //log(phoneNumber);
                 });
               }
-
-              // controller?.text = phoneNumber;
-              // final fdf = await PhoneNumber.getParsableNumber(PhoneNumber(
-              //     phoneNumber: widget.controller.text,
-              //     dialCode: countryCode,
-              //     isoCode: 'Ng'));
-              // log(fdf + ' par');
             },
             textInputAction: TextInputAction.next,
           ),
