@@ -12,7 +12,8 @@ import 'package:bodsquare_sdk/conversations/views/audio_player_view.dart';
 import 'package:bodsquare_sdk/conversations/views/audio_recorder_page.dart';
 import 'package:bodsquare_sdk/conversations/views/file_preview_page.dart';
 // import 'package:bodsquare_sdk/conversations/views/insta_story.dart';
-import 'package:bodsquare_sdk/conversations/views/view_attachment_page.dart';
+import 'package:bodsquare_sdk/conversations/views/view_attachment_page.dart'
+    if (dart.library.html) 'package:bodsquare_sdk/conversations/views/view_attachment_page_web.dart';
 import 'package:bodsquare_sdk/conversations/views/view_video_page.dart';
 import 'package:bodsquare_sdk/conversations/widgets/attachments_bottomsheet.dart';
 import 'package:bodsquare_sdk/conversations/widgets/unblock_user_bottomsheet.dart';

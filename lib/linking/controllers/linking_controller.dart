@@ -424,7 +424,6 @@ class LinkingController extends GetxController {
       getConnectionUrlLoadingStatus.value = false;
 
       // _loadingService.dismiss();
-
     }
   }
 
@@ -473,7 +472,7 @@ class LinkingController extends GetxController {
       getConnectionUrlLoadingStatus.value = true;
 
       final phones = countryCodeController.text +
-          phoneNumberController.text.replaceAll('-', '');
+          phoneNumberController.text.replaceAll('-', '').replaceAll(' ', '');
       final phone = phones.replaceAll('+', '');
 
       // _loadingService.show(status: 'Processing...');
@@ -500,7 +499,6 @@ class LinkingController extends GetxController {
             e.response?.data['message'] ?? 'Error connecting account';
         // _loadingService.showError(
         //     e.response?.data['message'] ?? 'Error connecting account');
-
       } else {
         getConnectionUrlLoadingStatus.value = false;
         linkingError.value = 'Error connecting account';
@@ -755,7 +753,6 @@ class LinkingController extends GetxController {
     }
   }
   //
-
 }
 
 /// Handles string extensions for this sdk

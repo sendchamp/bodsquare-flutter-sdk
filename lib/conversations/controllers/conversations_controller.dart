@@ -265,7 +265,6 @@ class ConversationsController extends GetxController {
       );
       // getAllConversations();
       // await getOfflineMessage(id);
-
     } else {
       _loadingService.showError(
         'unable to send message...',

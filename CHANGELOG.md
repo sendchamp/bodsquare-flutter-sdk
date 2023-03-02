@@ -1,3 +1,5 @@
+## 0.0.6
+- Fix package dependency issue on web.
 ## 0.0.5
 - Remove webview flow to show links in external browser.
 ## 0.0.4
