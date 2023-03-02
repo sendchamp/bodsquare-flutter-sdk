@@ -1,3 +1,5 @@
+## 0.0.7
+- Explicitly state support for web.
 ## 0.0.6
 - Fix package dependency issue on web.
 ## 0.0.5
